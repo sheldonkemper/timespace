@@ -24,6 +24,9 @@ class EmployeeServiceJpaTest
 	@Mock
 	EmployeeRepository employeeRepository;
 	
+	@Mock
+	Employee employee;
+	
 	@InjectMocks
 	EmployeeServiceJpa service;
 
@@ -31,8 +34,10 @@ class EmployeeServiceJpaTest
 	void findByLastName()
 	{
 		//Using Project Lombok to build an employee with an id of 1 and a surname of Kemper
-		Employee returnEmployee = Employee.builder().id(1l).lastName(LAST_NAME).build();
-		when(employeeRepository.findByLastName(any())).thenReturn(returnEmployee);
+		employee = new Employee();
+		employee.setLastName(LAST_NAME);
+		
+		when(employeeRepository.findByLastName(any())).thenReturn(employee);
 		Employee kemper = service.findByLastName(LAST_NAME);
 		
 		assertEquals(LAST_NAME,kemper.getLastName());

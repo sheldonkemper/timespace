@@ -2,9 +2,10 @@ com/timespace/TimespaceApplication.class
 com/timespace/models/Manager.class
 com/timespace/security/SpringSecurityConfig.class
 com/timespace/services/EmployeeService.class
-com/timespace/jpa/EmployeeServiceJpa.class
+com/timespace/services/map/AbstractMapService.class
 com/timespace/models/Employee.class
 com/timespace/controllers/EmployeeController.class
+com/timespace/services/jpa/EmployeeServiceJpa.class
 com/timespace/security/SpringSecurityWebApplicationInitializer.class
 com/timespace/security/SpringWebApplicationInitializer.class
 com/timespace/models/Manager$ManagerBuilder.class
@@ -13,6 +14,8 @@ com/timespace/controllers/IndexController.class
 com/timespace/models/Person.class
 com/timespace/services/CrudService.class
 com/timespace/controllers/HumanResourceController.class
+com/timespace/bootstrap/Dataloader.class
+com/timespace/services/map/EmployeeServiceMap.class
 com/timespace/controllers/LoginController.class
 com/timespace/config/WebConfiguration.class
 com/timespace/models/BaseEntity.class

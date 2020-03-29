@@ -26,13 +26,6 @@ public class HumanResourceController
 		model.addAttribute("employees",employeeService.findAll());
 		return "humanresource/listEmployees";
 	}
-	
-	@RequestMapping(value = {"/addemployee"}, method = RequestMethod.GET)
-	public ModelAndView hrAddEmployee() 
-	{
-		ModelAndView model = new ModelAndView();
-		model.setViewName("humanresource/addEmployee");
-		return model;
-	}
+
 	
 }
