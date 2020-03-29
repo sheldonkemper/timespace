@@ -1,0 +1,17 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout(~{::body},'humanresource')}">
+<head>
+    <title>Adding a new employee test</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+</head>
+<body>
+	<div class="container">
+		<h1 th:text="'Human resource home page'">Home page</h1>
+		<p>Add a new employee <a href="/humanresource/addemployee">here</a></p>
+		<h2>List of employees</h2>
+	</div>
+</body>
+
+</html>

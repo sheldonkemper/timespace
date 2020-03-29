@@ -1,0 +1,19 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout(~{::body},'humanresource')}">
+<head>
+    <title>Getting Started: Handling Form Submission</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    
+</head>
+    <body>
+      <div class="container">
+	<h1>Success</h1>
+    <!-- <p th:text="'First Name: ' + ${addemployee.firstName}" />
+    <p th:text="'Last Name: ' + ${addemployee.lastName}" />
+   <p th:text="'Employee start date: ' + ${addemployee.startDate}" />
+    <p th:text="'Employee holiday entitlement: ' + ${addemployee.entitlement}+' days'" /> -->
+    <a href="/addemployee">Create another Employee</a>
+    </div>
+</body>
+</html>

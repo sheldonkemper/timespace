@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity4" th:replace="~{fragments/layout :: layout(~{::body},'index')}">
+<head>
+    <title>Timespace:: a holiday allocation system</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" th:href="@{../css/timespace.css}" />
+</head>
+<body>
+<div class="container">
+
+	<h2>Timespace Portal</h2>
+
+     <p>Welcome user : <span sec:authentication="name"></span> </p>
+     <div sec:authorize="hasRole('USER')">Text visible to user.</div> 
+         <div sec:authorize="hasRole('HR')">Text visible to user HR.</div>   
+        <div sec:authorize="hasRole('ADMIN')">Text visible to admin.</div>
+         <div sec:authorize="isAuthenticated()"> Text visible only to authenticated users.</div> 
+   
+</div>
+</body>
+</html>
