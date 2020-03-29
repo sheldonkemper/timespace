@@ -1,17 +1,14 @@
 package com.timespace.controllers;
 
 
-import static org.hamcrest.CoreMatchers.is;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -56,7 +53,7 @@ public class HumanResourceControllerTest {
 	{
 		
 		when(employeeService.findAll()).thenReturn(employee);
-		mocMvc.perform(get("/humanresource/listemployees"))
+		mocMvc.perform(get("/humanresource/listemployee"))
 		.andExpect(status().isOk())
 		.andExpect(view().name("humanresource/listEmployees"));
 		//.andExpect(model().attribute("employee", Matchers.hasProperty("id",Matchers.is(1l))));
@@ -71,7 +68,7 @@ public class HumanResourceControllerTest {
 	@Test
 	@WithMockUser(username = "hr", password = "123", roles = "HR")
 	public void HumanResourceNavigateToIndexPageTest() throws Exception {
-	    this.mocMvc.perform(get("http://localhost:5000/humanresource/listemployees")).andDo(print()).andExpect(status().isOk());
+	    this.mocMvc.perform(get("/humanresource/listemployee")).andDo(print()).andExpect(status().isOk());
 	}
 	
 
