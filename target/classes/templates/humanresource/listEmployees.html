@@ -17,15 +17,19 @@
 			<thead>
 				<tr>
 					<th scope="col">Id</th>
+					<th scope="col">Employee Id</th>
 					<th scope="col">First Name</th>
 					<th scope="col">Last Name</th>
+					<th scope="col">Details</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr th:each="employee:${employees}">
-				<th scope="row" th:text="${employee?.id}">1</td>
+				<th scope="row" th:text="${employee?.id}">1</th>
+				<td th:text="${employee?.emplId}">test</td>
 					<td th:text="${employee?.firstName}">test</td>
 					<td th:text="${employee?.lastName}">user</td>
+					<td><a href="/employee/details">View</a></td>
 				</tr>
 			</tbody>
 		</table>

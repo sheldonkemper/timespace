@@ -30,8 +30,8 @@ class LoginControllerTest {
 	}
 	
 	@Test
-	public void shouldReturnDefaultLogout() throws Exception {
-		this.mockMvc.perform(get("/logout")).andDo(print()).andExpect(status().isOk());
+	public void shouldRedirectDefaultLogout() throws Exception {
+		this.mockMvc.perform(get("/logout")).andDo(print()).andExpect(status().is3xxRedirection());
 
 	}
 	

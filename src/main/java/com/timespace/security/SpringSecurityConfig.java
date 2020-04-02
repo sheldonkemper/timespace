@@ -34,7 +34,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter
 	                .authorizeRequests()
 	                .antMatchers("/h2-console/**").permitAll()
 	                .antMatchers("/humanresource/**").hasRole("HR")
-	                .antMatchers("/employee/**").hasRole("EMPLOYEE")
+	                .antMatchers("/employee/**").hasAnyRole("HR","EMPLOYEE")
 	                .antMatchers("/shared/**").hasAnyRole("EMPLOYEE","MANAGER")
 	            .and()
 	                .formLogin()

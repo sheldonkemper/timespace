@@ -39,11 +39,16 @@ class EmployeeServiceJpaTest
 		
 		when(employeeRepository.findByLastName(any())).thenReturn(employee);
 		Employee kemper = service.findByLastName(LAST_NAME);
-		
 		assertEquals(LAST_NAME,kemper.getLastName());
-		
 		// selective, explicit, highly readable verification
 		verify(employeeRepository).findByLastName(any());
-
+		}
+	
+	@Test
+	void displayEmployees() throws Exception
+	{
+		//when(EmployeeServiceJpa.findById(anyLong())).thenReturn(Employee.builder().id(1l)).build();
+		
 	}
+	
 }

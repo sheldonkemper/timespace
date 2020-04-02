@@ -13,10 +13,18 @@ public class EmployeeController
 	
 	
 	@RequestMapping(value = {"/requestholiday"}, method = RequestMethod.GET)
-	public ModelAndView userPage() 
+	public ModelAndView requestHoliday() 
 	{
 		ModelAndView model = new ModelAndView();
 		model.setViewName("employee/requestHoliday");
+		return model;
+	}
+	
+	@RequestMapping(value = {"/details"}, method = RequestMethod.GET)
+	public ModelAndView details() 
+	{
+		ModelAndView model = new ModelAndView();
+		model.setViewName("employee/details");
 		return model;
 	}
 	
