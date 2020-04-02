@@ -2,6 +2,7 @@ package com.timespace.services.jpa;
 
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 import org.springframework.stereotype.Service;
 import com.timespace.models.Employee;
@@ -58,6 +59,12 @@ public class EmployeeServiceJpa implements EmployeeService
 	public Employee findByLastName(String lastName)
 	{
 		return this.employeeRepository.findByLastName(lastName);
+	}
+
+	@Override
+	public Optional<Employee> findByEmplId(Integer emplId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	

@@ -1,5 +1,6 @@
 package com.timespace.services.map;
 
+import java.util.Optional;
 import java.util.Set;
 import com.timespace.models.Employee;
 import com.timespace.services.EmployeeService;
@@ -38,6 +39,12 @@ public class EmployeeServiceMap extends AbstractMapService<Employee,Long> implem
 	@Override
 	public void delete(Employee object) {
 		super.delete(object);
+	}
+
+	@Override
+	public Optional<Employee> findByEmplId(Integer emplId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

@@ -1,7 +1,5 @@
 package com.timespace.bootstrap;
 
-import java.time.LocalDate;
-
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -29,25 +27,30 @@ public class Dataloader  implements CommandLineRunner{
 	private void loadData()
 	{
 		
-		Employee employee1 = new Employee();
-		employee1.setFirstName("Sheldon");
-		employee1.setLastName("Kemper");
-		employee1.setId(12130L);
-		LocalDate startDate1 = LocalDate.of(2020,03,28);
-		employee1.setStartDate(startDate1);
-		employeeService.save(employee1);
+		Employee manager =new Employee();
+		manager.setFirstName("Sheldon");
 		
-		System.out.print("Employee 1 created..");
+		Employee emp1 = new Employee();
+		emp1.setFirstName("Paul");
 		
-		Employee employee2 = new Employee();
-		employee2.setFirstName("Paul");
-		employee2.setLastName("Hennigan");
-		employee2.setId(140L);
-		LocalDate startDate2 = LocalDate.of(2020,03,28);
-		employee1.setStartDate(startDate2);
-		employeeService.save(employee2);
+		Employee emp2 = new Employee();
+		emp2.setFirstName("Bryan");
 		
-		System.out.print("Employee 2 created..");
+		emp1.setManager(manager);
+		
+		emp2.setManager(manager);
+		
+		manager.getSubordinates().add(emp1);
+		manager.getSubordinates().add(emp2);
+		
+		//employeeService.save(emp1);
+		//employeeService.save(emp2);
+		//employeeService.save(manager);
+		
+		
+		manager.getSubordinates().forEach((n) -> System.out.print(n.getFirstName()));
+		System.out.print("\n");
+		manager.getSubordinates().forEach((n) -> System.out.print(n.getManager().getFirstName()));
 		
 	}
 

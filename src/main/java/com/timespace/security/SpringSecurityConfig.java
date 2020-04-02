@@ -27,11 +27,12 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter
 
 
 	    @Override
-	    protected void configure(final HttpSecurity http) throws Exception 
+	    protected void configure(HttpSecurity httpSecurity) throws Exception
 	    {
-	        http
+	    	httpSecurity
 	              
 	                .authorizeRequests()
+	                .antMatchers("/h2-console/**").permitAll()
 	                .antMatchers("/humanresource/**").hasRole("HR")
 	                .antMatchers("/employee/**").hasRole("EMPLOYEE")
 	                .antMatchers("/shared/**").hasAnyRole("EMPLOYEE","MANAGER")
@@ -45,6 +46,11 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter
 	            .and()
 	                .exceptionHandling()
 	                .accessDeniedPage("/403");
+	        
+	        httpSecurity.authorizeRequests().antMatchers("/").permitAll().and()
+            			.authorizeRequests().antMatchers("/console/**").permitAll();
+	        httpSecurity.csrf().disable();
+	        httpSecurity.headers().frameOptions().disable();
 
 	    }
 	    

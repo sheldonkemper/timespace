@@ -2,6 +2,7 @@ package com.timespace.models;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,30 +11,30 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 
-/**
- *
- * @author Sheldon Kemper
- */
-@SuppressWarnings("serial")
 @Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "manager")
-public class Manager extends Person 
-{
-	/**
+@Table(name="holiday")
+public class Holiday extends BaseEntity{
+	    /**
 	 * 
 	 */
-	@Column(name="manager_id")
-	 Integer managerId;
+		private static final long serialVersionUID = 1L;
 
-	@Column(name ="dept" )
-	String dept;
-	
+		@Id
+	    private Long id;
+	    
+		@Column(name="start_date")
+	    private String startDate;
+		
+		@Column(name="end_date")
+	    private String endDate;
+	    
+		
+	    
 
-	
-	
-}
+	}
+

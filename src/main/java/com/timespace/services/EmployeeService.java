@@ -1,5 +1,7 @@
 package com.timespace.services;
 
+import java.util.Optional;
+
 import org.springframework.stereotype.Service;
 
 import com.timespace.models.Employee;
@@ -8,4 +10,5 @@ import com.timespace.models.Employee;
 public interface EmployeeService extends CrudService<Employee, Long>
 {
     Employee findByLastName(String lastName);
+    Optional<Employee> findByEmplId(Integer emplId);
 }
