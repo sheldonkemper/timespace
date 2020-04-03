@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" th:replace="~{fragments/layout :: layout(~{::body},'index')}">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" th:replace="~{fragments/layout :: layout(~{::body},'employee')}">
 <head>
     <title>Timespace:: a holiday allocation system</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -10,6 +10,24 @@
 <div class="container">
 <h2>Employee Details</h2>
 <br>
+<table class="table table-striped">
+<tr>
+	<th>Employee ID</th>
+	<td><span th:text="${employee.emplId}">empl id</span></td>
+</tr>
+<tr>
+	<th>Name</th>
+	<td><span th:text="${employee.firstName +' ' + employee.lastName}">firstname lastname</span></td>
+</tr>
+<tr>
+	<th>Start date</th>
+	<td><span th:text="${employee.startDate}">start date</span></td>
+</tr>
+
+
+
+
+</table>
 </div>
 
 </body>

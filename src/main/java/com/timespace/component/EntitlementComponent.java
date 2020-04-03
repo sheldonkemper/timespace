@@ -1,10 +1,16 @@
 package com.timespace.component;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import static java.time.temporal.ChronoUnit.DAYS;
 import java.time.temporal.TemporalAdjusters;
+import static java.time.temporal.TemporalAdjusters.lastDayOfYear;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 
 /**
@@ -14,13 +20,17 @@ import org.springframework.stereotype.Component;
  * default to 25 days.
  * @author Sheldon Kemper
  */
+@Setter
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Component
-
 public class EntitlementComponent
 {
 
-    private String startdate;
-    private LocalDate parseStartDate;
+    private LocalDate startdate;
+    private LocalDate startDate;
     private int entitlement;
     private int contractualEntitlment;
     
@@ -32,31 +42,7 @@ public class EntitlementComponent
      * @param localDate  LocalDate of the employees start date
      * @param contractual Integer of the contractual holiday entitlement
      */
-    public EntitlementComponent(final String localDate, final int contractual) 
-    {
-	this.setContractualEntitlment(contractual);
-        this.setStartdate(localDate);
-        this.dateFormatter();
-        this.calculateEntitlement();
-    }
 
-    public EntitlementComponent() 
-    {
-	
-	 this.setContractualEntitlment(25);
-	 }
-    
-    /**
-     * Format a date into the expected pattern
-     * @return String date
-     */
-     public String dateFormatter () 
-     {
-         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy"); 
-         LocalDate parsedDate = LocalDate.parse(this.startdate, formatter);
-         this.parseStartDate = parsedDate;
-         return parsedDate.toString();
-    }
      
     /**
      * Get the number of days between, given day, and end of year,
@@ -73,42 +59,17 @@ public class EntitlementComponent
      * Given a start and end date calculate the number of days.
      * @return Long the number of days between the employee start date and end of year
      */
-    private long calculateDaysBetweenTwoDates() 
+    public long calculateDaysBetweenTwoDates() 
     {
-	   	 long noOfDaysBetween = DAYS.between(parseStartDate, this.getYearEnd() );
+	   	 long noOfDaysBetween = DAYS.between(this.getStartdate(), this.getYearEnd() );
 	   	 return noOfDaysBetween;
     }
     
-    //GETTERS AND SETTERS//
-    
-    public void setContractualEntitlment(int contractualEntitlment) 
-    {
-   	 this.contractualEntitlment = contractualEntitlment;
-    }
-   
-    public void setStartdate(String startdate) 
-    {
-	 this.startdate = startdate;
-    }
-
-     public int getEntitlement() 
-     {
-         return entitlement;
-     }
      
-     String getStartdate() 
-     {
-    	 return startdate;
-     }
-
-     int getContractualEntitlment() 
-     {
-    	 return contractualEntitlment;
-     }
-     
-    private LocalDate getYearEnd() 
+    public LocalDate getYearEnd() 
     {
-        return this.parseStartDate.with(TemporalAdjusters.lastDayOfYear());
+    	LocalDate now = LocalDate.now();
+        return now.with(lastDayOfYear());
      }
     
 }

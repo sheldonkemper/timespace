@@ -29,7 +29,7 @@
 				<td th:text="${employee?.emplId}">test</td>
 					<td th:text="${employee?.firstName}">test</td>
 					<td th:text="${employee?.lastName}">user</td>
-					<td><a href="/employee/details">View</a></td>
+					<td><a th:href="@{/employee/details/}+${employee?.id}" >View</a></td>
 				</tr>
 			</tbody>
 		</table>
