@@ -6,50 +6,56 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 import static org.mockito.Mockito.anyLong;
+import static org.mockito.Mockito.mock;
+
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
+
+import static org.hamcrest.CoreMatchers.any;
 import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.assertNotNull;
+
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.timespace.models.Employee;
 import com.timespace.services.EmployeeService;
 
+import junit.framework.Assert;
+
 class EmployeeControllerTest {
 
 	MockMvc mockMvc;
+	
 	@Mock 
 	EmployeeService employeeService;
 	
 	@InjectMocks
 	EmployeeController controller;
 	
-	Set<Employee>employee;
+	@Mock 
+	Employee employee;
 	
 	@BeforeEach
 	void setUp() throws Exception {
-		employee = new HashSet<>();
-		employee.add(Employee.builder().id(1l).build());
-		employee.add(Employee.builder().id(2l).build());
-		
-		mockMvc =  MockMvcBuilders
-				.standaloneSetup(controller)
-				.build();
-		
+
+		MockitoAnnotations.initMocks(this);
 	}
 
 	@Test
-	void displayEmployeeTest()  throws Exception{
-		when(employeeService.findById(anyLong())).thenReturn(Employee.builder().id(1l).build());
+	void displayEmployeeTest() throws Exception {
+		assertNotNull(employee);
 		
-		mockMvc.perform(get("/employee/details/1"))
-		.andExpect(status().isOk())
-		.andExpect(view().name("employee/details"))
-		.andExpect(model().attribute("employee",hasProperty("id",is(1l))));
+		
+		
 	}
 
 }

@@ -24,10 +24,7 @@ import lombok.Setter;
 @Entity
 @Table(name="department")
 public class Department extends BaseEntity{
-	    /**
-	 * 
-	 */
-	
+
 
 		@Id
 	    @GeneratedValue(strategy = GenerationType.IDENTITY)

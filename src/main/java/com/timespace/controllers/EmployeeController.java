@@ -38,13 +38,7 @@ public class EmployeeController
 		return model;
 	}
 	
-	@RequestMapping(value = {"/details"}, method = RequestMethod.GET)
-	public ModelAndView details() 
-	{
-		ModelAndView model = new ModelAndView();
-		model.setViewName("employee/details");
-		return model;
-	}
+	
 	
 	
 	

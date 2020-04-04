@@ -1,7 +1,6 @@
 package com.timespace.models;
 
 import java.time.LocalDate;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -9,10 +8,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import com.timespace.component.EntitlementComponent;
 
@@ -47,29 +45,30 @@ public class Employee extends Person {
 	Integer emplId;
 
 	@Column(name = "start_date")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	LocalDate startDate;
 	
 	
 	@Column(name="entitlement")
 	Integer entitlement;
-
-	@Builder
-	public Employee(Long id, String firstName, String lastName, LocalDate startDate, Integer emplId) {
-		super(id, firstName, lastName);
-		this.startDate = startDate;
-		this.emplId = emplId;
 	
-	}
 	
-	public void calculateEmployeeEntitlement(EntitlementComponent entitle)
+	  @Builder 
+	  public Employee(Long id, String firstName, String lastName) { 
+		  super(id,firstName, lastName); 
+	  
+	  }
+	 
+	
+	public void calculateEntitlement(EntitlementComponent entitlementComponent)
 	{
-		  LocalDate start =  this.startDate;
-		  entitle.setStartdate(start);
-		  entitle.calculateEntitlement();
-		  int yearEnd = entitle.getEntitlement();
-		  this.entitlement = yearEnd;
-		
+		int calculatedEntitlement = entitlementComponent.calculateEntitlement(this.getEntitlement(), this.getStartDate());
+		if(calculatedEntitlement !=0)
+		{
+			this.entitlement = calculatedEntitlement;
+		}
 	}
+
 	
 
 }

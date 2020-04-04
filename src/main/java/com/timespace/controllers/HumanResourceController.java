@@ -1,11 +1,14 @@
 package com.timespace.controllers;
 
+
+import javax.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
-
+import com.timespace.component.EntitlementComponent;
+import com.timespace.models.Employee;
 import com.timespace.services.EmployeeService;
 
 @RequestMapping("/humanresource")
@@ -14,10 +17,12 @@ public class HumanResourceController
 {
 
 	private final EmployeeService employeeService;
+	private final EntitlementComponent entitlementComponent;
 	
-	public HumanResourceController(EmployeeService employeeService)
+	public HumanResourceController(EmployeeService employeeService,EntitlementComponent entitlementComponent)
 	{
 		this.employeeService = employeeService;
+		this.entitlementComponent = entitlementComponent;
 	}
 	
 	@RequestMapping({"/listemployee"})
@@ -27,13 +32,20 @@ public class HumanResourceController
 		return "humanresource/listEmployees";
 	}
 	
-	@RequestMapping(value = {"/addemployee"}, method = RequestMethod.GET)
-	public ModelAndView addEmployee() 
+	@GetMapping("/addemployee")
+	public String addEmployee(Model model) 
 	{
-		ModelAndView model = new ModelAndView();
-		model.setViewName("humanresource/addEmployee");
-		return model;
+		model.addAttribute("employee",Employee.builder().build());
+		
+		return "humanresource/addEmployee";
 	}
-
+	
+	@PostMapping("/saveemployee")
+	public String processNewEmployeeForm(@Valid Employee employee)
+	{
+			employee.calculateEntitlement(entitlementComponent);
+			Employee savedEmployee = employeeService.save(employee);
+			return "redirect:/employee/details/"+savedEmployee.getId();
+	}
 	
 }
