@@ -22,6 +22,7 @@ import lombok.Setter;
  */
 @Setter
 @Getter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Component
@@ -49,11 +50,9 @@ public class EntitlementComponent {
 	public int calculateEntitlement(Integer contract, LocalDate startdate) {
 		this.setStartdate(startdate);
 		this.setContract(contract);
-		
 		long ytd = this.calculateDaysBetweenTwoDates();
-
-		float v = (float) ytd / this.getsDaysInYear() * this.getContract();
-		return (int) Math.ceil(v);
+		float entitleCal  = (float) ytd / this.getsDaysInYear() * this.getContract();
+		return (int) Math.ceil(entitleCal );
 
 	}
 

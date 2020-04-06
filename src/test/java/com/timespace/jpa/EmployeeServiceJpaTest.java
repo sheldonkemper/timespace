@@ -1,54 +1,63 @@
 package com.timespace.jpa;
 
-
-import static org.mockito.Mockito.any;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.util.*;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import com.timespace.controllers.EmployeeController;
 import com.timespace.models.Employee;
 import com.timespace.repositories.EmployeeRepository;
-import com.timespace.services.jpa.EmployeeServiceJpa;
+import com.timespace.services.EmployeeService;
 
 
 @ExtendWith(MockitoExtension.class)
 class EmployeeServiceJpaTest
 {
-	private static final String LAST_NAME = "Kemper";
-
-	@Mock
+    @Mock
 	EmployeeRepository employeeRepository;
 	
 	@Mock
-	Employee employee;
-	
+	EmployeeService employeeService;
+	 
 	@InjectMocks
-	EmployeeServiceJpa service;
+	EmployeeController controller;
+	 
+	Set<Employee> employees;
+	 
+	MockMvc mockMvc;
 
-	@Test
-	void findByLastName()
-	{
-		//Using Project Lombok to build an employee with an id of 1 and a surname of Kemper
-		employee = new Employee();
-		employee.setLastName(LAST_NAME);
-		
-		when(employeeRepository.findByLastName(any())).thenReturn(employee);
-		Employee kemper = service.findByLastName(LAST_NAME);
-		assertEquals(LAST_NAME,kemper.getLastName());
-		// selective, explicit, highly readable verification
-		verify(employeeRepository).findByLastName(any());
-		}
+	  @BeforeEach
+	    void setUp() {
+	        employees = new HashSet<>();
+	        employees.add(Employee.builder().id(1l).build());
+	        employees.add(Employee.builder().id(2l).build());
+	 
+	        mockMvc = MockMvcBuilders
+	                .standaloneSetup(controller)
+	                .build();
+	    }
 	
-	@Test
-	void displayEmployees() throws Exception
-	{
-		//when(EmployeeServiceJpa.findById(anyLong())).thenReturn(Employee.builder().id(1l)).build();
-		
-	}
+	    @Test
+	    void displayEmployee() throws Exception {
+	        when(employeeService.findById(anyLong())).thenReturn(Employee.builder().id(1l).build());
+	 
+	        mockMvc.perform(get("/employee/details/1"))
+	                .andExpect(status().isOk())
+	                .andExpect(view().name("employee/details"));
+	                //.andExpect(model().attribute("employee", hasProperty("id", is(1l))));
+	    }
+	    
+	  
+	
 	
 }
