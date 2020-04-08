@@ -23,7 +23,7 @@ class EntitlementComponentTest {
 	 *  days of entitlement returned will equal 19
 	 */
     @Test
-    public void calculateEntitlement() {
+    public void calculateEntitlementTest() {
        
     	Integer value = entitlement.calculateEntitlement(CONTRACT,startDate);
     	Assertions.assertEquals(19 ,value );

@@ -65,8 +65,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter
 			return new InMemoryUserDetailsManager(
 				builder()
 					.passwordEncoder(input -> passwordEncoder().encode(input))
-					.username("user")
-					.password("123")
+					.username("Versey")
+					.password("12345")
 					.roles("EMPLOYEE")
 					.build(),
 				builder()
@@ -77,14 +77,14 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter
 					.build(),
 					builder()
 					.passwordEncoder(input -> passwordEncoder().encode(input))
-					.username("hr")
-					.password("123")
+					.username("Mallet")
+					.password("12345")
 					.roles("HR")
 					.build(),
 					builder()
 					.passwordEncoder(input -> passwordEncoder().encode(input))
-					.username("manager")
-					.password("123")
+					.username("Kemper")
+					.password("12130")
 					.roles("EMPLOYEE", "MANAGER")
 					.build()
 			);

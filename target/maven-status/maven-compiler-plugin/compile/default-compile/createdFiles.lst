@@ -3,6 +3,7 @@ com/timespace/repositories/HolidayRepository.class
 com/timespace/security/SpringSecurityConfig.class
 com/timespace/services/EmployeeService.class
 com/timespace/models/Department.class
+com/timespace/component/EntitlementComponent$EntitlementComponentBuilder.class
 com/timespace/models/Employee.class
 com/timespace/controllers/EmployeeController.class
 com/timespace/security/SpringWebApplicationInitializer.class

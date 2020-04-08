@@ -18,25 +18,42 @@ class LoginControllerTest {
 	@Autowired
 	private LoginController controller;
 	
+	/**
+	 * Test the controller is intialised.
+	 * @throws Exception
+	 */
 	@Test
-	public void contexLoads() throws Exception {
+	public void contexLoads() throws Exception 
+	{
 	    assertThat(controller).isNotNull();
 	}
-
+	/**
+	 * Confirm the login page is returned
+	 * @throws Exception
+	 */
 	@Test
-	public void shouldReturnDefaultLogon() throws Exception {
+	public void shouldReturnDefaultLogon() throws Exception 
+	{
 		this.mockMvc.perform(get("/login")).andDo(print()).andExpect(status().isOk());
 
 	}
-	
+	/**
+	 * After logout redirect
+	 * @throws Exception
+	 */
 	@Test
-	public void shouldRedirectDefaultLogout() throws Exception {
+	public void shouldRedirectDefaultLogout() throws Exception 
+	{
 		this.mockMvc.perform(get("/logout")).andDo(print()).andExpect(status().is3xxRedirection());
 
 	}
-	
+	/**
+	 * If user is not authenticated redirect to login
+	 * @throws Exception
+	 */
 	@Test
-	public void shouldRedirect() throws Exception {
+	public void shouldRedirect() throws Exception 
+	{
 
 		this.mockMvc.perform(get("/humanresource/index")).andDo(print()).andExpect(redirectedUrl("http://localhost/login"));
 

@@ -74,7 +74,7 @@ public class Dataloader  implements CommandLineRunner{
 		LocalDate startDate4 = LocalDate.of(1995, 12, 24);
 		emp4.setFirstName("Hayley");
 		emp4.setLastName("Mallet");
-		emp4.setEmplId(12300);
+		emp4.setEmplId(12345);
 		emp4.setStartDate(startDate4);
 		emp4.setEntitlement(25);
 		emp4.calculateEntitlement(entitlementComponent);
@@ -85,7 +85,7 @@ public class Dataloader  implements CommandLineRunner{
 		emp5.setFirstName("Josh");
 		emp5.setLastName("Stone");
 		emp5.setStartDate(startDate5);
-		emp5.setEmplId(42346);
+		emp5.setEmplId(43210);
 		emp5.setEntitlement(25);
 		emp5.calculateEntitlement(entitlementComponent);
 		employeeService.save(emp5);
