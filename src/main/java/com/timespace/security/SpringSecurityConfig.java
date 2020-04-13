@@ -75,13 +75,13 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter
 					.password("password")
 					.roles("ADMIN")
 					.build(),
-					builder()
+				builder()
 					.passwordEncoder(input -> passwordEncoder().encode(input))
 					.username("Mallet")
 					.password("12345")
 					.roles("HR")
 					.build(),
-					builder()
+				builder()
 					.passwordEncoder(input -> passwordEncoder().encode(input))
 					.username("Kemper")
 					.password("12130")

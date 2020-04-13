@@ -28,10 +28,10 @@
 	<td><span th:text="${employee.entitlement}">start date</span></td>
 </tr>
 
-
-
-
 </table>
+<div sec:authorize="hasRole('HR')"></div>
+<a th:href="@{/humanresource/editemployee/}+${employee?.id}"><button>Edit Employee</button> </a>
+<a th:href="@{/manager/addnew/}+${employee?.emplId}"><button>Add Manager</button></a>
 </div>
 
 </body>

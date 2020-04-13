@@ -1,46 +1,56 @@
 <!DOCTYPE HTML>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout(~{::body},'employee')}">
 <head>
-    <title>Adding a new employee test</title>
+    <title>Adding a new employee</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     
 </head>
     <body>
-      <div class="container">
-	    <h1>Add New Employee</h1>
+      <div class="container" th:object="${employee}">
+	    <h1> Add New Employee</h1>
+	   
 	    <p>Add the following details to create a new employee. On submission the holiday entitlement for this year will be calculated</p>
-        <form action="#" th:action="@{/humanresource/saveemployee}" th:object="${employee}" method="post">
+        <form action="#" th:action="@{/humanresource/saveemployee}" method="post">
         
 	    	<div class="form-group">
 	      		<label for="employeeNumber">Employee Identification</label>
-	      		<input th:field="*{emplId}"  type="text" class="form-control" id="employeeId"  placeholder="Enter number"/>
-	    		<div>Enter a number</div>
+	      		<input th:field="*{emplId}" type="text" class="form-control" id="employeeId"  placeholder="Enter number"/>
+	    		
 		 	</div>
 		 	
 	    	<div class="form-group">
 	      		<label for="employeeFirstName">Employee First Name</label>
 	      		<input th:field="*{firstName}" type="text" class="form-control" id="employeeFirstName"  placeholder="Enter first name"/>
-	    		<div>First Name Error</div>
+	    		
 	    	</div>
 	    	
 	        <div class="form-group">
 	      <label for="employeeLastName">Employee Last Name</label>
 	      <input th:field="*{lastName}" type="text" class="form-control" id="employeeLastName"  placeholder="Enter last name"/>
-	    	<div>Last Name Error</div>
+	    	
 	    </div>
 	    <div class="form-group">
 	      	<label for="startDate">Employee start date</label>
 	      	<input th:field="*{startDate}" th:value="*{startDate}" type="date" class="form-control" id="startDate" placeholder="startDate" />
-	    	 <div>Date Error</div>
+	    	
 	    </div>
 	    <div class="form-group">
 	      <label for="startDate">Employee contractual holiday entitlement</label>
 	      	<input th:field="*{entitlement}" type="number" class="form-control" id="contractual"/>
-	    	 <div>Integer Error</div>
+	    </div>
+	    <div th:if="${update}" class="form-group">
+	    <label for="startDate">Assign Department</label>
+	      	<input type="text" class="form-control" id="department"/>
+	    </div>
+	     <div th:if="${update}" class="form-group">
+	      	<label for="startDate">Assign Manager</label>
+	      	<input type="text" class="form-control" id="manager"/>
 	    </div>
     	<button type="submit" class="btn btn-primary">Submit</button>
         </form>
         </div>
+        
+         
     </body>
 </html>

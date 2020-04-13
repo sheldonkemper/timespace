@@ -13,22 +13,25 @@
 	<!-- /*@thymesVar id=""employee type= com.timespace.models.Employee*/-->
 		<h1 th:text="'List of Employees'">A list of employees</h1>
 
-		<table class="table table-hover table-dark">
+		<table class="table table-hover table-light">
 			<thead>
 				<tr>
 					<th scope="col">Id</th>
 					<th scope="col">Employee Id</th>
 					<th scope="col">First Name</th>
 					<th scope="col">Last Name</th>
+					<th scope="col">Department</th>
 					<th scope="col">Details</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr th:each="employee:${employees}">
-				<th scope="row" th:text="${employee?.id}">1</th>
-				<td th:text="${employee?.emplId}">test</td>
-					<td th:text="${employee?.firstName}">test</td>
-					<td th:text="${employee?.lastName}">user</td>
+				<th scope="row" th:text="${employee.id}">1</th>
+				<td th:text="${employee.emplId}">test</td>
+					<td th:text="${employee.firstName}">test</td>
+					<td th:text="${employee.lastName}">user</td>
+					<td th:text="${employee.manager?.department?.name}">user</td>
+
 					<td><a th:href="@{/employee/details/}+${employee?.id}" >View</a></td>
 				</tr>
 			</tbody>

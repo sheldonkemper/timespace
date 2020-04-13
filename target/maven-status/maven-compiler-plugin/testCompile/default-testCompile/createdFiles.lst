@@ -1,5 +1,0 @@
-com/timespace/TimespaceApplicationTests.class
-com/timespace/component/EntitlementComponentTest.class
-com/timespace/controllers/HumanResourceControllerTest.class
-com/timespace/controllers/LoginControllerTest.class
-com/timespace/jpa/EmployeeServiceJpaTest.class

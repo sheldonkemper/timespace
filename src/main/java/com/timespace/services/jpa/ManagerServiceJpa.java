@@ -55,17 +55,13 @@ public class ManagerServiceJpa implements ManagerService
 		
 	}
 
-	//@Override
-	//public Manager findByLastName(String lastName)
-	//{
-	//	return this.managerRepository.findByLastName(lastName);
-	//}
 
 	@Override
 	public Optional<Manager> findByEmplId(Integer emplId) {
-		// TODO Auto-generated method stub
-		return null;
+		return managerRepository.findByEmplId(emplId);
 	}
+
+
 	
 	
 	

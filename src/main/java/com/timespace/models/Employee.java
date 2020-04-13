@@ -38,7 +38,7 @@ public class Employee extends Person {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	Manager manager;
 
 	@Column(name = "empl_id")
@@ -52,11 +52,18 @@ public class Employee extends Person {
 	@Column(name="entitlement")
 	Integer entitlement;
 	
+	Long managerEmplId;
+	
 	
 	  @Builder 
 	  public Employee(Long id, String firstName, String lastName) { 
 		  super(id,firstName, lastName); 
 	  
+	  }
+	  
+	  void setManagerId()
+	  {
+		  this.managerEmplId = manager.getId();
 	  }
 	 
 	
