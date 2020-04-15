@@ -1,36 +1,39 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" th:replace="~{fragments/layout :: layout(~{::body},'index')}">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	th:replace="~{fragments/layout :: layout(~{::body},'employee')}">
 <head>
-    <title>Timespace:: a holiday allocation system</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" th:href="@{../css/timespace.css}" />
+<title>Timespace:: a holiday allocation system</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" type="text/css"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" th:href="@{../css/timespace.css}" />
 </head>
 <body>
-<div class="container">
-<h2>Request Holiday</h2>
-<br>
+	<div class="container">
+		<h2>
+			Request Holiday
+		</h2>
 
-<form th:action="@{/requestholiday}" method="post">
-  <div class="form-group">
-    <label for="startDate">Start date</label>
-    <input type="date" class="form-control" id="startDate">
-    <small id="emailHelp" class="form-text text-muted">Select the start date of your holiday.</small>
-  </div>
-    <div class="form-group">
-    <label for="endDate">Start date</label>
-    <input type="date" class="form-control" id="endDate">
-    <small id="emailHelp" class="form-text text-muted">Select the end date of your holiday.</small>
-  </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form>
-   <p>Welcome user : <span sec:authentication="name"></span> </p>
-     <div sec:authorize="hasRole('USER')">Text visible to user.</div> 
-         <div sec:authorize="hasRole('HR')">Text visible to user HR.</div>   
-        <div sec:authorize="hasRole('ADMIN')">Text visible to admin.</div>
-         <div sec:authorize="isAuthenticated()"> Text visible only to authenticated users.</div> 
+		<p>Select the start and end date of your holiday request</p>
 
-</div>
+		<form th:object="${holiday}" method="post" action="">
 
+	
+			<div class="form-group">
+				<label for="startDate">Start date</label> 
+				<input th:field="*{startDate}" th:value="*{startDate}" type="date" class="form-control" id="startDate" placeholder="startDate" />
+			</div>
+			
+			<div class="form-group">
+				<label for="endDate">Start date</label> 
+				<input th:field="*{endDate}" th:value="*{endDate}" type="date" class="form-control" id="endDate" placeholder="endDate" />
+			</div>
+		
+				
+			
+			<button type="submit" class="btn btn-primary">Submit</button>
+		</form>
+	</div>
 </body>
 </html>

@@ -44,6 +44,7 @@ public class HumanResourceController
 	{
 		dataBinder.setDisallowedFields("id");
 	}
+	
 	@RequestMapping({"/listemployee"})
 	public String listEmployee(ModelMap model)
 	{
@@ -69,16 +70,6 @@ public class HumanResourceController
 		 model.addAttribute("employee",empl).addAttribute("manager",manager1);
 		 return "humanresource/editEmployee";
 	}
-	
-	/*
-	 * @PostMapping("/editemployee/{employeeId}")
-	 * 
-	 * @ResponseBody public String editEmployee(@RequestParam Map <String,String>
-	 * allParams) { System.out.print("Parameters are " + allParams.entrySet());
-	 * return null;
-	 * 
-	 * }
-	 */
 	
 	
 	  @PostMapping("/editemployee/{employeeId}") 

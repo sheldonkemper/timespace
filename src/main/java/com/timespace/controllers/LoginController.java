@@ -1,21 +1,43 @@
 package com.timespace.controllers;
 
+import java.security.Principal;
+
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.catalina.User;
+import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.unbescape.html.HtmlEscape;
+
+import com.timespace.models.Employee;
+import com.timespace.services.EmployeeService;
+import com.timespace.services.jpa.EmployeeServiceJpa;
 
 @Controller
 public class LoginController 
 {
-
+	EmployeeService employeeService;
+	
+	public LoginController(EmployeeService employeeService)
+	{
+		this.employeeService = employeeService;
+	}
 	  /** Login form. */
     @RequestMapping({"","/","login"})
-    public String login() 
-    {
-        return "index";
+    public String login(ModelMap model, Principal principal ) {
+    	 //@TODO Check if null
+    	if(principal!=null)
+    	{
+    		  String lastName = principal.getName(); //get logged in username
+    	      Employee employee = this.employeeService.findByLastName(lastName);
+    	      model.addAttribute("employee", employee);
+    	}
+		return "index";
     }
 
 	/** Login form with error. */

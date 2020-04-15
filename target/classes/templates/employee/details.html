@@ -29,9 +29,8 @@
 </tr>
 
 </table>
-<div sec:authorize="hasRole('HR')"></div>
+<div sec:authorize="hasRole('HR')">
 <a th:href="@{/humanresource/editemployee/}+${employee?.id}"><button>Edit Employee</button> </a>
-<a th:href="@{/manager/addnew/}+${employee?.emplId}"><button>Add Manager</button></a>
 </div>
 
 </body>

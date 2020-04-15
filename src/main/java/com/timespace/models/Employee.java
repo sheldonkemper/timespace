@@ -1,6 +1,10 @@
 package com.timespace.models;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -8,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -52,7 +57,9 @@ public class Employee extends Person {
 	@Column(name="entitlement")
 	Integer entitlement;
 	
-	Long managerEmplId;
+	@OneToMany(cascade = CascadeType.ALL,mappedBy = "employee")
+	private Set<Holiday> holidays = new HashSet<>();
+
 	
 	
 	  @Builder 
@@ -61,10 +68,6 @@ public class Employee extends Person {
 	  
 	  }
 	  
-	  void setManagerId()
-	  {
-		  this.managerEmplId = manager.getId();
-	  }
 	 
 	
 	public void calculateEntitlement(EntitlementComponent entitlementComponent)

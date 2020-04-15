@@ -8,8 +8,10 @@ import org.springframework.stereotype.Component;
 import com.timespace.component.EntitlementComponent;
 import com.timespace.models.Department;
 import com.timespace.models.Employee;
+import com.timespace.models.Holiday;
 import com.timespace.models.Manager;
 import com.timespace.services.EmployeeService;
+import com.timespace.services.HolidayService;
 import com.timespace.services.ManagerService;
 
 
@@ -21,12 +23,14 @@ public class Dataloader  implements CommandLineRunner{
 	private final EmployeeService employeeService;
 	private final ManagerService managerService;
 	private final EntitlementComponent entitlementComponent;
+	private HolidayService holidayService;
 	
-	public Dataloader (EmployeeService employeeService,ManagerService managerService,EntitlementComponent entitlementComponent)
+	public Dataloader (HolidayService holidayService,EmployeeService employeeService,ManagerService managerService,EntitlementComponent entitlementComponent)
 	{
 		this.employeeService = employeeService;
 		this.managerService = managerService;
 		this.entitlementComponent = entitlementComponent;
+		this.holidayService = holidayService;
 		
 	}
 
@@ -49,6 +53,11 @@ public class Dataloader  implements CommandLineRunner{
 		emp1.calculateEntitlement(entitlementComponent);
 		employeeService.save(emp1);
 		
+		Holiday verseyHoliday = new Holiday();
+		verseyHoliday.setEmployee(emp1);
+		verseyHoliday.setStartDate(LocalDate.of(2020, 02, 11));
+		verseyHoliday.setEndDate(LocalDate.of(2020, 02, 18));
+		holidayService.save(verseyHoliday);
 		
 		Employee emp2 = new Employee();
 		LocalDate startDate2 = LocalDate.of(2004, 11, 24);

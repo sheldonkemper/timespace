@@ -1,9 +1,19 @@
 package com.timespace.models;
 
+import static java.time.temporal.ChronoUnit.DAYS;
+
+import java.time.LocalDate;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -28,13 +38,34 @@ public class Holiday extends BaseEntity{
 	    private Long id;
 	    
 		@Column(name="start_date")
-	    private String startDate;
+		@DateTimeFormat(pattern = "yyyy-MM-dd")
+	    private LocalDate startDate;
 		
 		@Column(name="end_date")
-	    private String endDate;
-	    
+		@DateTimeFormat(pattern = "yyyy-MM-dd")
+	    private LocalDate endDate;
 		
+		@Column(name="description")
+	    private String description;
+		
+		@Column(name="granted")
+	    private  Boolean granted;
 	    
-
+		@ManyToOne
+		@JoinColumn(name = "empl_id")
+		private Employee employee;
+	    
+		public Boolean validDateRange()
+		{
+			return this.startDate.isBefore(this.endDate);
+				
+		}
+		
+		public Long daysBetween()
+		{
+			return DAYS.between(this.startDate,this.endDate);
+		}
+		
+	
 	}
 
