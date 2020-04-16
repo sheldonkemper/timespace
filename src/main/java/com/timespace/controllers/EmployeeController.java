@@ -1,18 +1,23 @@
 package com.timespace.controllers;
 
 import java.time.LocalDate;
+import java.util.Map;
 
 import javax.validation.Valid;
 
+import org.apache.commons.logging.Log;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.timespace.models.Employee;
@@ -25,8 +30,10 @@ import com.timespace.services.HolidayService;
 public class EmployeeController {
 	private final HolidayService holidayService;
 	private final EmployeeService employeeService;
+	private final Log log;
 
 	public EmployeeController(HolidayService holidayService, EmployeeService employeeService) {
+		this.log = null;
 		this.employeeService = employeeService;
 		this.holidayService = holidayService;
 	}
@@ -37,42 +44,12 @@ public class EmployeeController {
 	}
 
 	@GetMapping("/details/{employeeId}")
-	public ModelAndView showDetails(@PathVariable("employeeId") Long employeeId) {
+	public ModelAndView showDetails(@PathVariable("employeeId") Long employeeId,@ModelAttribute("holiday") Holiday holiday) {
 		ModelAndView model = new ModelAndView("employee/details");
+		
 		Employee employee = this.employeeService.findById(employeeId);
-		model.addObject("employee", employee);
+		model.addObject("employee", employee).addObject("holiday",holiday);
 		return model;
-	}
-
-	@GetMapping("/requestholiday/{employeeId}")
-	public ModelAndView requestHoliday(@PathVariable("employeeId") Long employeeId,
-			@ModelAttribute("employee") Employee employee, @ModelAttribute("holiday") Holiday holiday,
-			BindingResult result) {
-		ModelAndView model = new ModelAndView("employee/requestholiday");
-		model.addObject("employee", this.employeeService.findById(employeeId)).addObject("holiday",
-				Holiday.builder().build());
-		return model;
-	}
-
-	@PostMapping("/requestholiday/{employeeId}")
-	public String editEmployee(@Valid Holiday holiday, BindingResult result,
-			@PathVariable("employeeId") long employeeId) {
-
-		if (result.hasErrors()) {
-			return "employee/requestHoliday/" + employeeId;
-		} else {
-
-			Employee employee = employeeService.findById(employeeId);
-
-			if (holiday.validDateRange() && employee.getEntitlement() > 0) {
-				holiday.setEmployee(employee);
-				holidayService.save(holiday);
-				return "redirect:/employee/details/{employeeId}";
-			} else {
-				return "employee/requestHoliday/" + employeeId;
-			}
-
-		}
 	}
 
 }

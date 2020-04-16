@@ -54,7 +54,7 @@ public class Dataloader  implements CommandLineRunner{
 		employeeService.save(emp1);
 		
 		Holiday verseyHoliday = new Holiday();
-		verseyHoliday.setEmployee(emp1);
+		verseyHoliday.setEmplId(emp1);
 		verseyHoliday.setStartDate(LocalDate.of(2020, 02, 11));
 		verseyHoliday.setEndDate(LocalDate.of(2020, 02, 18));
 		holidayService.save(verseyHoliday);

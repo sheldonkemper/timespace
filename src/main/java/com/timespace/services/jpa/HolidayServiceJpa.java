@@ -1,13 +1,11 @@
 package com.timespace.services.jpa;
 
-
 import java.util.HashSet;
 import java.util.Set;
 import org.springframework.stereotype.Service;
 import com.timespace.models.Holiday;
 import com.timespace.repositories.HolidayRepository;
 import com.timespace.services.HolidayService;
-
 
 
 @Service
@@ -29,28 +27,27 @@ public class HolidayServiceJpa implements HolidayService
 	}
 
 	@Override
-	public Holiday findById(Long id) {
+	public Holiday findById(Long id) 
+	{
 		return this.holidayRepository.findById(id).orElse(null);
 	}
 
 	@Override
-	public Holiday save(Holiday object) {
+	public Holiday save(Holiday object) 
+	{
 		return this.holidayRepository.save(object);
 	}
 
 	@Override
-	public void delete(Holiday object) {
+	public void delete(Holiday object) 
+	{
 		this.holidayRepository.delete(object);
-		
 	}
 
 	@Override
-	public void deleteById(Long id) {
+	public void deleteById(Long id) 
+	{
 		this.holidayRepository.deleteById(id);
-		
 	}
-
-
-
 
 }

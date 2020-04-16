@@ -52,33 +52,25 @@ public class Employee extends Person {
 	@Column(name = "start_date")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	LocalDate startDate;
-	
-	
-	@Column(name="entitlement")
+
+	@Column(name = "entitlement")
 	Integer entitlement;
-	
-	@OneToMany(cascade = CascadeType.ALL,mappedBy = "employee")
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "emplId")
 	private Set<Holiday> holidays = new HashSet<>();
 
-	
-	
-	  @Builder 
-	  public Employee(Long id, String firstName, String lastName) { 
-		  super(id,firstName, lastName); 
-	  
-	  }
-	  
-	 
-	
-	public void calculateEntitlement(EntitlementComponent entitlementComponent)
-	{
-		int calculatedEntitlement = entitlementComponent.calculateEntitlement(this.getEntitlement(), this.getStartDate());
-		if(calculatedEntitlement !=0)
-		{
+	@Builder
+	public Employee(Long id, String firstName, String lastName) {
+		super(id, firstName, lastName);
+
+	}
+
+	public void calculateEntitlement(EntitlementComponent entitlementComponent) {
+		int calculatedEntitlement = entitlementComponent.calculateEntitlement(this.getEntitlement(),
+				this.getStartDate());
+		if (calculatedEntitlement != 0) {
 			this.entitlement = calculatedEntitlement;
 		}
 	}
-
-	
 
 }

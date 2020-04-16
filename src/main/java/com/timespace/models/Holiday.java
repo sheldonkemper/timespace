@@ -10,8 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.AllArgsConstructor;
@@ -49,23 +47,22 @@ public class Holiday extends BaseEntity{
 	    private String description;
 		
 		@Column(name="granted")
-	    private  Boolean granted;
+		@Builder.Default
+	    private  String granted = "Awaiting";
 	    
 		@ManyToOne
 		@JoinColumn(name = "empl_id")
-		private Employee employee;
+		private Employee emplId;
 	    
 		public Boolean validDateRange()
 		{
 			return this.startDate.isBefore(this.endDate);
-				
 		}
 		
 		public Long daysBetween()
 		{
 			return DAYS.between(this.startDate,this.endDate);
 		}
-		
-	
+
 	}
 
