@@ -28,12 +28,12 @@
           Dropdown
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a sec:authorize="hasRole('HR')" class="dropdown-item" href="/humanresource/addemployee">Add Employee</a>
-          <a sec:authorize="hasRole('HR')" class="dropdown-item" href="/humanresource/listemployee">List Employee</a>
+          <a sec:authorize="hasRole('HR')" class="dropdown-item" href="/humanresource/addemployee">Add new Employee</a>
+          <a sec:authorize="hasRole('HR')" class="dropdown-item" href="/humanresource/listemployee">List all Employees</a>
           <a sec:authorize="hasRole('EMPLOYEE')" class="dropdown-item" th:href="@{/employee/requestholiday/}+${employee?.id}">Request Holiday</a>
-           <a sec:authorize="hasRole('EMPLOYEE')" class="dropdown-item" th:href="@{/employee/details/}+${employee?.id}" > Details</a>
+           <a sec:authorize="hasRole('EMPLOYEE')" class="dropdown-item" th:href="@{/employee/details/}+${employee?.id}" > Employee Details</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a>
+          
         </div>
       </li>
       <li class="nav-item">

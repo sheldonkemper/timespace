@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout(~{::body},'employee')}">
+<head>
+    <title>Adding a new employee</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    
+</head>
+    <body>
+      <div class="container">
+	    <h1> Add New Department</h1>
+	   
+	    <p>Add the following details to create a new department</p>
+        <form  method="post">
+        
+	    	<div class="form-group">
+	      		<label for="department">Department name</label>
+	      		<input th:field="*{department.name}" type="text" class="form-control" id="department"  placeholder="Enter name"/>
+	    		
+		 	</div>
+		 	
+    	<button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        </div>
+        
+         
+    </body>
+</html>

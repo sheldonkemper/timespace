@@ -51,10 +51,10 @@ public class Manager extends BaseEntity
 	 private Department department;
  
 	 @Builder
-	public Manager(Employee emp)
-	 {
-		 this.emplId = emp.getEmplId();
-	 }
+		public Manager(Employee emp)
+		 {
+			 this.emplId = emp.getEmplId();
+		 }
 
 	 
     

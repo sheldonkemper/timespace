@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{fragments/layout :: layout(~{::body},'employee')}">
+<head>
+<title>Adding a new employee test</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" type="text/css"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+</head>
+<body>
+	<div class="container">
+		<h1>Promote an Employee</h1>
+		<p>Select the new managers department</p>
+		<form th:object="${employee}" method="post" action="">
+
+			<div class="form-group">
+				<label for="employeeNumber">Employee Identification</label> 
+				<input th:field="*{emplId}" type="text" class="form-control"
+					id="employeeId" readonly />
+
+			</div>
+			<div class="input-group mb-3">
+				<div class="input-group-prepend">
+					<label class="input-group-text" for="inputGroupSelect01">Assign Department</label>
+				</div>
+				<select class="custom-select" th:field="*{manager}" name="manager">
+				
+					<option th:each="department : ${department}" th:value="${department?.id}" th:text="${department.name}">manager</option>
+				</select>
+				<a th:href="@{/humanresource/newdepartment/}+${employee?.id}">  (+)add new department</a>
+			</div>
+			
+			<button type="submit" class="btn btn-primary">Submit</button>
+		</form>
+	</div>
+
+
+
+</body>
+</html>

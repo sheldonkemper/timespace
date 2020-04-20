@@ -50,7 +50,7 @@
 					<label class="input-group-text" for="inputGroupSelect01">Assign Manager</label>
 				</div>
 				<select class="custom-select" th:field="*{manager}" name="manager">
-				
+					
 					<option th:each="manager : ${manager}" th:value="${manager?.id}" th:text="${manager?.emplId}">manager</option>
 				</select>
 			</div>

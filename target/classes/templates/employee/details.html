@@ -32,13 +32,18 @@
 				<th>Yearly holiday entitlement</th>
 				<td><span th:text="${employee.entitlement}">start date</span></td>
 			</tr>
-
+		<tr>
+				<th>Department</th>
+				<td><span th:text="${employee.manager?.department?.name}">unassigned</span><span sec:authorize="hasRole('HR')" th:if="${employee.manager?.department?.name}==null"><a th:href="@{/humanresource/editemployee/}+${employee?.id}">assign manager</a></span></td>
+			</tr>
 		</table>
 		<div sec:authorize="hasRole('HR')">
 			<a th:href="@{/humanresource/editemployee/}+${employee?.id}"><button>Edit
 					Employee</button> </a>
+					<a th:href="@{/humanresource/addmanager/}+${employee?.id}"><button>Promote
+					Employee</button> </a>
 		</div>
-
+<br>
 	<h3>Employee Holiday Request</h3>
 
 <table class="table">

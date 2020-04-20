@@ -1,6 +1,8 @@
 package com.timespace.bootstrap;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -123,6 +125,7 @@ public class Dataloader  implements CommandLineRunner{
 		manager1.getSubordinates().add(emp4);
 		manager1.getSubordinates().add(emp5);
 		managerService.save(manager1);
+		
 
 	}
 
