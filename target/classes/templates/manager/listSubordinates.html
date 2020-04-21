@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{fragments/layout :: layout(~{::body},'humanresource')}">
+<head>
+<title>List Employees</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" type="text/css"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+</head>
+<body>
+	<div class="container">
+	<!-- /*@thymesVar id=""employee type= com.timespace.models.Manager*/-->
+		<h1 th:text="'List of Employees'">A list of employees</h1>
+
+	<div th:text="${employee.firstName}">test</div>
+	
+	<table class="table table-hover table-light">
+			<thead>
+				<tr>
+					<th scope="col">Id</th>
+					<th scope="col">Employee Id</th>
+					<th scope="col">First Name</th>
+					<th scope="col">Last Name</th>
+					<th scope="col">Department</th>
+					<th scope="col">Details</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="employee:${manager.subordinates}">
+				<th scope="row" th:text="${employee.id}">1</th>
+				<td th:text="${employee.emplId}">test</td>
+					<td th:text="${employee.firstName}">test</td>
+					<td th:text="${employee.lastName}">user</td>
+					<td th:text="${employee.lastName}">user</td>
+					<td th:text="${employee.manager?.department?.name}">user</td>
+					<td> 
+						<select class="custom-select">
+						 	<option th:each="details: ${employee.holidays}" th:if="${details.granted=='Awaiting'}">Awaiting</option>
+						</select>
+           			</td>
+
+					<td><a th:href="@{/employee/details/}+${employee?.id}" >View</a></td>
+				</tr>
+			</tbody>
+		</table>
+
+	</div>
+
+</body>
+</html>

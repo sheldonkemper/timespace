@@ -33,7 +33,7 @@
           <a sec:authorize="hasRole('EMPLOYEE')" class="dropdown-item" th:href="@{/employee/requestholiday/}+${employee?.id}">Request Holiday</a>
            <a sec:authorize="hasRole('EMPLOYEE')" class="dropdown-item" th:href="@{/employee/details/}+${employee?.id}" > Employee Details</a>
           <div class="dropdown-divider"></div>
-          
+            <a sec:authorize="hasRole('MANAGER')" class="dropdown-item" th:href="@{/manager/listsubordinates/}+${employee?.id}" > List subordinates</a>
         </div>
       </li>
       <li class="nav-item">

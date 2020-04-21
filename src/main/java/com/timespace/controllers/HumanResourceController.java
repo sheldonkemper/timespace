@@ -107,8 +107,6 @@ public class HumanResourceController {
 		}
 	}
 
-
-
 	@GetMapping("/addmanager/{employeeId}")
 	public String addManager(@PathVariable("employeeId") Long employeeId, ModelMap model) {
 		model.addAttribute("employee", this.employeeService.findById(employeeId)).addAttribute("department",
@@ -135,7 +133,6 @@ public class HumanResourceController {
 		}
 
 		return "redirect:/employee/details/{employeeId}";
-
 	}
 	
 	@GetMapping("/newdepartment/{employeeId}")

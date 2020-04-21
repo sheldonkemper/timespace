@@ -35,8 +35,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter
 	                .antMatchers("/").permitAll()
 	                .antMatchers("/console/**").permitAll()
 	                .antMatchers("/humanresource/**").hasRole("HR")
-	                .antMatchers("/employee/**").hasAnyRole("HR","EMPLOYEE")
-	                .antMatchers("/shared/**").hasAnyRole("EMPLOYEE","MANAGER")
+	                .antMatchers("/employee/**").hasAnyRole("HR","EMPLOYEE","MANAGER")
+	                .antMatchers("/manager/**").hasAnyRole("MANAGER")
 	                
 	            .and()
 	                .formLogin()
@@ -50,7 +50,6 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter
 	                .exceptionHandling()
 	                .accessDeniedPage("/403");
 	        
-	       
 	        httpSecurity.csrf().disable();
 	        httpSecurity.headers().frameOptions().disable();
 
