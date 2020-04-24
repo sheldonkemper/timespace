@@ -11,13 +11,16 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.unbescape.html.HtmlEscape;
 
 import com.timespace.models.Employee;
 import com.timespace.services.EmployeeService;
 import com.timespace.services.jpa.EmployeeServiceJpa;
-
+@SessionAttributes("user")
 @Controller
 public class LoginController 
 {
@@ -27,15 +30,19 @@ public class LoginController
 	{
 		this.employeeService = employeeService;
 	}
+	
+	  @ModelAttribute("user")
+	    public Employee setUpUserForm() {
+	        return new Employee();
+	    }
 	  /** Login form. */
     @RequestMapping({"","/","login"})
-    public String login(ModelMap model, Principal principal ) {
+    public String login(@ModelAttribute("user") Employee user, ModelMap model, Principal principal ) {
     	 //@TODO Check if null
     	if(principal!=null)
     	{
     		  String lastName = principal.getName(); //get logged in username
-    	      Employee employee = this.employeeService.findByLastName(lastName);
-    	      model.addAttribute("employee", employee);
+    	      user = this.employeeService.findByLastName(lastName);
     	}
 		return "index";
     }

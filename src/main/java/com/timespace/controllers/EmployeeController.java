@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
 import com.timespace.models.Employee;
 import com.timespace.models.Holiday;
@@ -30,6 +31,14 @@ public class EmployeeController {
 	public ModelAndView showDetails(@PathVariable("employeeId") Long employeeId,@ModelAttribute("holiday") Holiday holiday) {
 		ModelAndView model = new ModelAndView("employee/details");
 		Employee employee = this.employeeService.findById(employeeId);
+		model.addObject("employee", employee).addObject("holiday",holiday);
+		return model;
+	}
+	
+	@GetMapping("/details")
+	public ModelAndView showDetails(@SessionAttribute("user")Employee user,@ModelAttribute("holiday") Holiday holiday) {
+		ModelAndView model = new ModelAndView("employee/details");
+		Employee employee = this.employeeService.findById(user.getId());
 		model.addObject("employee", employee).addObject("holiday",holiday);
 		return model;
 	}

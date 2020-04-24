@@ -13,6 +13,7 @@
 	<h2>Timespace Portal</h2>
 
      <p>Welcome user : <span sec:authentication="name"></span> </p>
+     <p>Welcome user : <div th:text="${session.id}">John Doe</div> </p>
      <div sec:authorize="hasRole('USER')">Text visible to user.</div> 
          <div sec:authorize="hasRole('HR')">Text visible to user HR.</div>   
         <div sec:authorize="hasRole('ADMIN')">Text visible to admin.</div>

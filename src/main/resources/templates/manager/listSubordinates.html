@@ -23,7 +23,8 @@
 					<th scope="col">First Name</th>
 					<th scope="col">Last Name</th>
 					<th scope="col">Department</th>
-					<th scope="col">Details</th>
+					<th scope="col">Authorised</th>
+					<th scope="col">#Holiday</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -32,20 +33,21 @@
 				<td th:text="${employee.emplId}">test</td>
 					<td th:text="${employee.firstName}">test</td>
 					<td th:text="${employee.lastName}">user</td>
-					<td th:text="${employee.lastName}">user</td>
 					<td th:text="${employee.manager?.department?.name}">user</td>
 					<td> 
 						<select class="custom-select">
-						 	<option th:each="details: ${employee.holidays}" th:if="${details.granted=='Awaiting'}">Awaiting</option>
+						 	<option th:each="details: ${employee.holidays}" th:if="${details.granted=='Awaiting'}" >Awaiting</option>
 						</select>
            			</td>
+           			<td th:text="${#lists.size(employee.holidays)}"></td>
 
 					<td><a th:href="@{/employee/details/}+${employee?.id}" >View</a></td>
 				</tr>
 			</tbody>
 		</table>
 
-	</div>
+	
+
 
 </body>
 </html>

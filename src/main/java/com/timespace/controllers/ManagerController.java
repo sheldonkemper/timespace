@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.timespace.models.Employee;
@@ -24,23 +26,41 @@ public class ManagerController {
 	
 	private final EmployeeService employeeService;
 	private final ManagerService managerService;
+	private final HolidayService holidayService;
 	
-	public ManagerController(ManagerService managerService,HolidayService holidayService, EmployeeService employeeService) {
+	public ManagerController(HolidayService holidayService,ManagerService managerService, EmployeeService employeeService) {
 		this.employeeService = employeeService;
 		this.managerService = managerService;
+		this.holidayService = holidayService;
 	}
 	@InitBinder
 	public void setAllowedFields(WebDataBinder dataBinder) {
 		dataBinder.setDisallowedFields("id");
 	}
-	@GetMapping("/listsubordinates/{employeeId}")
-	public String listStaff(@PathVariable("employeeId") Long employeeId,ModelMap modelMap) {
+	@GetMapping("/listsubordinates")
+	public String listStaff(@SessionAttribute("user")Employee user,ModelMap modelMap) {
 		
-		Employee employee = this.employeeService.findById(employeeId);
-		Manager manager = managerService.findByEmplId(employee.getEmplId()).get();
-		modelMap.addAttribute("employee",employee).addAttribute("manager",manager);
-		
+		Manager manager = managerService.findByEmplId(user.getEmplId()).get();
+		modelMap.addAttribute("employee",user).addAttribute("manager",manager);
 		return "manager/listSubordinates";
+	}
+	
+	@GetMapping("/grantholiday/{employeeId}/{holidayId}")
+	public String grantHoliday(@PathVariable("employeeId") Long employeeId,@PathVariable("holidayId") Long holidayId,ModelMap modelMap) {
+		
+		Holiday holiday = this.holidayService.findById(holidayId);
+		holiday.setGranted("Accepted");
+		this.holidayService.save(holiday);
+		return "redirect:/employee/details/"+ employeeId;
+	}
+	
+	@GetMapping("/declineholiday/{employeeId}/{holidayId}")
+	public String declineHoliday(@PathVariable("employeeId") Long employeeId,@PathVariable("holidayId") Long holidayId,ModelMap modelMap) {
+		
+		Holiday holiday = this.holidayService.findById(holidayId);
+		holiday.setGranted("Declined");
+		this.holidayService.save(holiday);
+		return "redirect:/employee/details/"+ employeeId;
 	}
 
 }

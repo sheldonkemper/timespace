@@ -55,6 +55,9 @@ public class Employee extends Person {
 
 	@Column(name = "entitlement")
 	Integer entitlement;
+	
+	@Column(name = "contracted")
+	Integer contracted;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "emplId")
 	private Set<Holiday> holidays = new HashSet<>();
@@ -66,10 +69,12 @@ public class Employee extends Person {
 	}
 
 	public void calculateEntitlement(EntitlementComponent entitlementComponent) {
-		int calculatedEntitlement = entitlementComponent.calculateEntitlement(this.getEntitlement(),
+		Integer postedEntitlement = this.getEntitlement();
+		int calculatedEntitlement = entitlementComponent.calculateEntitlement(postedEntitlement,
 				this.getStartDate());
 		if (calculatedEntitlement != 0) {
 			this.entitlement = calculatedEntitlement;
+			this.contracted = postedEntitlement;
 		}
 	}
 
