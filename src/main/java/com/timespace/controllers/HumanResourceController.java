@@ -38,7 +38,7 @@ public class HumanResourceController {
 	private static final String VIEWS_OWNER_CREATE_OR_UPDATE_FORM = "employee/details/";
 
 	public HumanResourceController(DepartmentService departmentService, ManagerService managerService,
-			EmployeeService employeeService, EntitlementComponent entitlementComponent) {
+		EmployeeService employeeService, EntitlementComponent entitlementComponent) {
 		this.employeeService = employeeService;
 		this.entitlementComponent = entitlementComponent;
 		this.managerService = managerService;
@@ -76,6 +76,7 @@ public class HumanResourceController {
 			return "humanresource/addEmployee";
 		} else {
 			employee.calculateEntitlement(entitlementComponent);
+			employee.setContracted(25);
 			Employee savedEmployee = employeeService.save(employee);
 			return "redirect:/employee/details/" + savedEmployee.getId();
 
@@ -84,8 +85,9 @@ public class HumanResourceController {
 
 	@GetMapping("/editemployee/{employeeId}")
 	public String addEmployee(@PathVariable("employeeId") Long employeeId,
-			@ModelAttribute("employee") Employee employee, @ModelAttribute("manager") Manager manager,
-			BindingResult result, ModelMap model) {
+		@ModelAttribute("employee") Employee employee, @ModelAttribute("manager") Manager manager,
+		BindingResult result, ModelMap model) 
+	{
 		Employee empl = this.employeeService.findById(employeeId);
 		Set<Manager> manager1 = this.managerService.findAll();
 		model.addAttribute("employee", empl).addAttribute("manager", manager1);
@@ -94,32 +96,32 @@ public class HumanResourceController {
 
 	@PostMapping("/editemployee/{employeeId}")
 	public String editEmployee(@Valid Employee employee, BindingResult result,
-			@PathVariable("employeeId") long employeeId, @RequestParam("manager") Manager manager) {
+			@PathVariable("employeeId") long employeeId, @RequestParam("manager") Manager manager) 
+	{
 		if (result.hasErrors()) {
 			return VIEWS_OWNER_CREATE_OR_UPDATE_FORM;
 		} else {
 			employee.setId(employeeId);
 			this.employeeService.save(employee);
-
 			Manager aManager = managerService.findById(manager.getId());
 			aManager.getSubordinates().add(employee);
 			this.managerService.save(aManager);
-
 			return "redirect:/employee/details/{employeeId}";
 		}
 	}
 
 	@GetMapping("/addmanager/{employeeId}")
-	public String addManager(@PathVariable("employeeId") Long employeeId, ModelMap model) {
+	public String addManager(@PathVariable("employeeId") Long employeeId, ModelMap model) 
+	{
 		model.addAttribute("employee", this.employeeService.findById(employeeId)).addAttribute("department",
-				this.departmentService.findAll());
-
+		this.departmentService.findAll());
 		return "humanresource/addManager";
 	}
 
 	@PostMapping("/addmanager/{employeeId}")
 	public String editManager(@Valid Employee employee, @PathVariable("employeeId") long employeeId,
-			@RequestParam("manager") Department department) {
+			@RequestParam("manager") Department department) 
+	{
 
 		boolean aManager = managerService.findByEmplId(employee.getEmplId()).isPresent();
 		// Check if manager exists
@@ -138,16 +140,15 @@ public class HumanResourceController {
 	}
 	
 	@GetMapping("/newdepartment/{employeeId}")
-	public String addDepartment(@PathVariable("employeeId") long employeeId,Model model) {
+	public String addDepartment(@PathVariable("employeeId") long employeeId,Model model) 
+	{
 		model.addAttribute("department", Department.builder().build());
-
 		return "humanresource/addDepartment";
 	}
 	
 	@PostMapping("/newdepartment/{employeeId}")
-	public String processNewDepartmentForm(@PathVariable("employeeId") long employeeId,@Valid Department department) {
-	
-			
+	public String processNewDepartmentForm(@PathVariable("employeeId") long employeeId,@Valid Department department) 
+	{
 			departmentService.save(department);
 			return "redirect:/humanresource/addmanager/"+employeeId;
 

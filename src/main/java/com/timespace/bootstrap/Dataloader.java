@@ -81,35 +81,40 @@ public class Dataloader  implements CommandLineRunner{
 		emp3.calculateEntitlement(entitlementComponent);
 		employeeService.save(emp3);
 	
-		Employee emp4 = new Employee();
-		LocalDate startDate4 = LocalDate.of(1995, 12, 24);
-		emp4.setFirstName("Hayley");
-		emp4.setLastName("Mallet");
-		emp4.setEmplId(12345);
-		emp4.setStartDate(startDate4);
-		emp4.setEntitlement(25);
-		emp4.calculateEntitlement(entitlementComponent);
-		employeeService.save(emp4);
 		
-		Employee emp5 = new Employee();
-		LocalDate startDate5 = LocalDate.of(2020, 02, 04);
-		emp5.setFirstName("Josh");
-		emp5.setLastName("Stone");
-		emp5.setStartDate(startDate5);
-		emp5.setEmplId(43210);
-		emp5.setEntitlement(25);
-		emp5.calculateEntitlement(entitlementComponent);
-		employeeService.save(emp5);
-		
-		Employee emp6 = new Employee();
-		LocalDate startDate6 = LocalDate.of(2019, 04, 05);
-		emp6.setFirstName("Clare");
-		emp6.setLastName("Child");
-		emp6.setStartDate(startDate6);
-		emp6.setEmplId(12230);
-		emp6.setEntitlement(25);
-		emp6.calculateEntitlement(entitlementComponent);
-		employeeService.save(emp6);
+		  Employee emp4 = new Employee(); 
+		  LocalDate startDate4 = LocalDate.of(1995, 12,
+		  24); emp4.setFirstName("Hayley"); 
+		  emp4.setLastName("Mallet");
+		  emp4.setEmplId(12345); 
+		  emp4.setStartDate(startDate4);
+		  emp4.setEntitlement(25); 
+		  emp4.calculateEntitlement(entitlementComponent);
+		  employeeService.save(emp4);
+		  
+			
+		  Employee emp5 = new Employee(); 
+		  LocalDate startDate5 = LocalDate.of(1995, 12,
+		  24); emp5.setFirstName("Josh"); 
+		  emp5.setLastName("Stone");
+		  emp5.setEmplId(12346); 
+		  emp5.setStartDate(startDate5);
+		  emp5.setEntitlement(25); 
+		  emp5.calculateEntitlement(entitlementComponent);
+		  employeeService.save(emp5);
+			 
+			  
+		  Employee emp6 = new Employee(); 
+		  LocalDate startDate6 = LocalDate.of(2019, 04,05); 
+		  emp6.setFirstName("Clare"); 
+		  emp6.setLastName("Child");
+		  emp6.setStartDate(startDate6); 
+		  emp6.setEmplId(12230);
+		  emp6.setEntitlement(25); 
+		  emp6.calculateEntitlement(entitlementComponent);
+		  employeeService.save(emp6);
+			 
+		 
 		
 		
 		Manager manager =new Manager(emp3);
@@ -119,12 +124,13 @@ public class Dataloader  implements CommandLineRunner{
 		manager.getSubordinates().add(emp2);
 		managerService.save(manager);
 		
-		Manager manager1 =new Manager(emp6);
-		Department department1 = new Department("Human Resource");
-		manager1.setDepartment(department1);
-		manager1.getSubordinates().add(emp4);
-		manager1.getSubordinates().add(emp5);
-		managerService.save(manager1);
+		
+		  Manager manager1 =new Manager(emp6); Department department1 = new
+		  Department("Human Resource"); manager1.setDepartment(department1);
+		  manager1.getSubordinates().add(emp4);
+		  manager1.getSubordinates().add(emp5);
+		  managerService.save(manager1);
+		 
 		
 
 	}

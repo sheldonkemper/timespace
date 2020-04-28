@@ -67,14 +67,24 @@ public class Employee extends Person {
 		super(id, firstName, lastName);
 
 	}
-
+	
+	/**
+	 * 
+	 * @param entitlementComponent
+	 */
 	public void calculateEntitlement(EntitlementComponent entitlementComponent) {
 		Integer postedEntitlement = this.getEntitlement();
 		int calculatedEntitlement = entitlementComponent.calculateEntitlement(postedEntitlement,
 				this.getStartDate());
-		if (calculatedEntitlement != 0) {
-			this.entitlement = calculatedEntitlement;
-			this.contracted = postedEntitlement;
+		
+		if (calculatedEntitlement != -1) {
+			this.setEntitlement(calculatedEntitlement);
+			this.setContracted(postedEntitlement);
+		}
+		else
+		{
+			this.setEntitlement(this.getEntitlement());
+			this.setContracted( this.getEntitlement());
 		}
 	}
 

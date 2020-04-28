@@ -3,17 +3,13 @@ package com.timespace.controllers;
 import java.security.Principal;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
-import org.apache.catalina.User;
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.unbescape.html.HtmlEscape;
 
@@ -37,12 +33,14 @@ public class LoginController
 	    }
 	  /** Login form. */
     @RequestMapping({"","/","login"})
-    public String login(@ModelAttribute("user") Employee user, ModelMap model, Principal principal ) {
+    public String login(@ModelAttribute("user") Employee user, @ModelAttribute("employee") Employee employee, Model model, Principal principal ) {
     	 //@TODO Check if null
     	if(principal!=null)
     	{
     		  String lastName = principal.getName(); //get logged in username
-    	      user = this.employeeService.findByLastName(lastName);
+    	      employee = this.employeeService.findByLastName(lastName);//Find user in storage
+    	      model.addAttribute("user", employee.getId());//add user id to session
+
     	}
 		return "index";
     }

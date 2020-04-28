@@ -52,11 +52,11 @@ public class HolidayController
 		return holiday;
 	}
 
-	@GetMapping("/requestholiday/{employeeId}")
-	public String initNewHolidayRequestForm(@PathVariable("employeeId") Long employeeId, Map<String, Object> model) 
-	{
-		return "employee/requestHoliday";
-	}
+	/*
+	 * @GetMapping("/requestholiday/{employeeId}") public String
+	 * initNewHolidayRequestForm(@PathVariable("employeeId") Long employeeId,
+	 * Map<String, Object> model) { return "employee/requestHoliday"; }
+	 */
 
 	@PostMapping ("/requestholiday/{employeeId}")
 	public String processHolidayRequestForm(@PathVariable("employeeId") Long employeeId,@Valid Holiday holiday,BindingResult result)

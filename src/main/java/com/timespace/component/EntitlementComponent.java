@@ -52,8 +52,15 @@ public class EntitlementComponent {
 		this.setContract(contract);
 		long ytd = this.calculateDaysBetweenTwoDates();
 		float entitleCal  = (float) ytd / this.getsDaysInYear() * this.getContract();
-		return (int) Math.ceil(entitleCal );
-
+		if(ytd == -1)
+		{
+			return -1;
+		}
+		else
+		{
+			return (int) Math.ceil(entitleCal );
+		}
+		
 	}
 
 	/**
@@ -69,8 +76,11 @@ public class EntitlementComponent {
 		if (this.isDateinYear()) {
 			return DAYS.between(this.getStartdate(), this.yearEnd);
 		}
-		return 0;
-		// @TODO what to return is date is not in given year?
+		else
+		{
+			
+			return -1;
+		}
 	}
 
 	private Boolean isDateinYear() {

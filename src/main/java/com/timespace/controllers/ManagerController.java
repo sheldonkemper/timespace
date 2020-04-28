@@ -1,5 +1,7 @@
 package com.timespace.controllers;
 
+import static java.time.temporal.ChronoUnit.DAYS;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -48,10 +50,30 @@ public class ManagerController {
 	@GetMapping("/grantholiday/{employeeId}/{holidayId}")
 	public String grantHoliday(@PathVariable("employeeId") Long employeeId,@PathVariable("holidayId") Long holidayId,ModelMap modelMap) {
 		
+		//
+		Employee employee = employeeService.findById(employeeId);
 		Holiday holiday = this.holidayService.findById(holidayId);
-		holiday.setGranted("Accepted");
-		this.holidayService.save(holiday);
-		return "redirect:/employee/details/"+ employeeId;
+		Integer requestedDays = (int) DAYS.between(holiday.getStartDate(), holiday.getEndDate());
+		Integer entitlment = employee.getEntitlement();
+		System.out.println("##########");
+		System.out.println(requestedDays);
+		System.out.println("##########");
+		System.out.println(entitlment );
+		
+		if( entitlment >= requestedDays)
+		{
+			employee.setEntitlement(entitlment - requestedDays);
+			
+			holiday.setGranted("Approved");
+			this.holidayService.save(holiday);
+			return "redirect:/employee/details/"+ employeeId;
+		}
+		else
+		{
+			return "redirect:/employee/requestholiday";
+		}
+		
+		
 	}
 	
 	@GetMapping("/declineholiday/{employeeId}/{holidayId}")
