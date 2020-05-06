@@ -20,7 +20,11 @@ public class LogonSuccessHandler implements AuthenticationSuccessHandler {
        }
        if (roles.contains("ROLE_EMPLOYEE")) {
     	   
-           response.sendRedirect("/");
+           response.sendRedirect("employee/details");
        }
+	 if (roles.contains("ROLE_MANAGER")) {
+	    	   
+	           response.sendRedirect("manager/listsubordinates");
+	       }
    }
 }
