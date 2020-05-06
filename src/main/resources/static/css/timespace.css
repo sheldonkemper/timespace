@@ -1,11 +1,18 @@
 @charset "UTF-8";
 
 a.granted {
-  color: green;
-}
+  color: green;}
 
 a.declined {
-  color: red;
-}
+  color: red;}
 
-i{color:grey;}
+i{
+	color:grey;}
+.box{
+	height: 6em;
+	padding: 1em;
+	color:#FFFFFF;
+	font-size: 2em;
+	position:relative;
+	top:3em;
+}
