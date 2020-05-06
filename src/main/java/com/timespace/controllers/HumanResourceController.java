@@ -57,8 +57,13 @@ public class HumanResourceController {
 		 return "humanresource/listEmployees";
 	}
 
-	@RequestMapping({ "/listemployee" })
-	public String listEmployee(ModelMap model) {
+	/**
+	 * Get a list of all employees
+	 * @param model
+	 * @return
+	 */
+	@GetMapping({ "/listemployee" })
+	public String getListOfEmployees(ModelMap model) {
 		model.addAttribute("employees", employeeService.findAll()).addAttribute("manager", managerService.findAll());
 		return "humanresource/listEmployees";
 	}

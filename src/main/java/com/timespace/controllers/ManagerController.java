@@ -47,24 +47,43 @@ public class ManagerController {
 		return "manager/listSubordinates";
 	}
 	
-	@GetMapping("/grantholiday/{employeeId}/{holidayId}")
-	public String grantHoliday(@PathVariable("employeeId") Long employeeId,@PathVariable("holidayId") Long holidayId,ModelMap modelMap) {
+	/**
+	 * Accepting a get url request, with parameters for the employee id,holiday id,
+	 * and an int if granted or declined.
+	 * If number of days is <= to allowed entitlment, then set employee entitlment
+	 * 
+	 * @param employeeId
+	 * @param holidayId
+	 * @param modelMap
+	 * @return
+	 */
+	@GetMapping("/authholiday/{employeeId}/{holidayId}/{id}")
+	public String authoriseEmployeeHoliday(@PathVariable("id") Integer id,@PathVariable("employeeId") Long employeeId,@PathVariable("holidayId") Long holidayId,ModelMap modelMap) 
+	{
 		
-		//
 		Employee employee = employeeService.findById(employeeId);
 		Holiday holiday = this.holidayService.findById(holidayId);
 		Integer requestedDays = (int) DAYS.between(holiday.getStartDate(), holiday.getEndDate());
 		Integer entitlment = employee.getEntitlement();
-		System.out.println("##########");
-		System.out.println(requestedDays);
-		System.out.println("##########");
-		System.out.println(entitlment );
 		
-		if( entitlment >= requestedDays)
+		if(id == 1)
 		{
-			employee.setEntitlement(entitlment - requestedDays);
-			
-			holiday.setGranted("Approved");
+			if( entitlment >= requestedDays)
+			{
+				employee.setEntitlement(entitlment - requestedDays);
+				
+				holiday.setGranted("Approved");
+				this.holidayService.save(holiday);
+				return "redirect:/employee/details/"+ employeeId;
+			}
+			else
+			{
+				return "redirect:/employee/requestholiday";
+			}
+		}
+		else if(id == 0)
+		{
+			holiday.setGranted("Declined");
 			this.holidayService.save(holiday);
 			return "redirect:/employee/details/"+ employeeId;
 		}
@@ -72,17 +91,8 @@ public class ManagerController {
 		{
 			return "redirect:/employee/requestholiday";
 		}
-		
-		
-	}
 	
-	@GetMapping("/declineholiday/{employeeId}/{holidayId}")
-	public String declineHoliday(@PathVariable("employeeId") Long employeeId,@PathVariable("holidayId") Long holidayId,ModelMap modelMap) {
-		
-		Holiday holiday = this.holidayService.findById(holidayId);
-		holiday.setGranted("Declined");
-		this.holidayService.save(holiday);
-		return "redirect:/employee/details/"+ employeeId;
 	}
+
 
 }

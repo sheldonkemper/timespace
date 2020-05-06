@@ -42,8 +42,15 @@ public class EmployeeController {
 		dataBinder.setDisallowedFields("id");
 	}
 
+	/**
+	 * Return details for a specifid employee to the view
+	 * 
+	 * @param employeeId
+	 * @param holiday
+	 * @return View model
+	 */
 	@GetMapping("/details/{employeeId}")
-	public ModelAndView showDetails(@PathVariable("employeeId") Long employeeId,@ModelAttribute("holiday") Holiday holiday) {
+	public ModelAndView getEmployeeDetails(@PathVariable("employeeId") Long employeeId,@ModelAttribute("holiday") Holiday holiday) {
 		ModelAndView model = new ModelAndView("employee/details");
 		Employee employee = this.employeeService.findById(employeeId);
 		model.addObject("employee", employee).addObject("holiday",holiday);
@@ -51,7 +58,7 @@ public class EmployeeController {
 	}
 	
 	@GetMapping("/details")
-	public ModelAndView showDetails(@ModelAttribute("user")Employee user,@ModelAttribute("holiday") Holiday holiday) {
+	public ModelAndView getEmployee(@ModelAttribute("user")Employee user,@ModelAttribute("holiday") Holiday holiday) {
 		ModelAndView model = new ModelAndView("employee/details");
 		Employee employee = this.employeeService.findById(user.getId());
 		model.addObject("employee", user).addObject("holiday",holiday);
@@ -59,14 +66,24 @@ public class EmployeeController {
 	}
 	
 	@GetMapping("/requestholiday")
-	public String initNewHolidayRequestForm(@ModelAttribute("user")Employee user, Model model) 
+	public String initNewHolidayRequest(@ModelAttribute("user")Employee user, Model model) 
 	{
 		model.addAttribute("holiday", Holiday.builder().build());
 		return "employee/requestHoliday";
 	}
 	
+	/**
+	 * Accepting a form post, and if the date range has been input correctly
+	 * and the number of days is >= to an employees entitlment,
+	 * thne save the holiday for the associated employee.
+	 * @param user
+	 * @param holiday
+	 * @param model
+	 * @param attributes
+	 * @return Redirect to the details page
+	 */
 	@PostMapping ("/requestholiday")
-	public RedirectView processHolidayRequestForm(@ModelAttribute("user")Employee user,@Valid Holiday holiday,Model model,RedirectAttributes attributes)
+	public RedirectView processHolidayRequest(@ModelAttribute("user")Employee user,@Valid Holiday holiday,Model model,RedirectAttributes attributes)
 	{
 		if (holiday.validDateRange() && user.getEntitlement() >= holiday.daysBetween()) 
 		{

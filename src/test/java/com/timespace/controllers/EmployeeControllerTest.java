@@ -11,6 +11,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.*;
 
+import static org.hamcrest.CoreMatchers.is;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -45,12 +46,11 @@ class EmployeeControllerTest {
 	}
 
     @Test
-    void displayEmployee() throws Exception {
+    void displayEmployeeDetails() throws Exception {
         when(employeeService.findById(anyLong())).thenReturn(Employee.builder().id(1l).build());
 
         mockMvc.perform(get("/employee/details/1"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("employee/details"));
-                //.andExpect(model().attribute("employee", hasProperty("id", is(1l))));
     }
 }
