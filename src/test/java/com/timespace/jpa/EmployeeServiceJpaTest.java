@@ -55,18 +55,6 @@ class EmployeeServiceJpaTest
 		Employee employee =  service.findById(1L);
 		assertNotNull(employee);
 	}
-	
-
-	  @Test
-	    void findByLastName() {
-	        when(employeeRepository.findByLastName(any())).thenReturn(returnedEmployee);
-
-	        Employee versey = service.findByLastName(LAST_NAME);
-
-	        assertEquals(LAST_NAME, versey.getLastName());
-
-	        verify(employeeRepository).findByLastName(any());
-	    }
 	    
 	  
 	   @Test
