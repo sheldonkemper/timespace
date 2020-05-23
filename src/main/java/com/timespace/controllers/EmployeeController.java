@@ -50,7 +50,10 @@ public class EmployeeController {
 	 * @return View model
 	 */
 	@GetMapping("/details/{employeeId}")
-	public ModelAndView getEmployeeDetails(@PathVariable("employeeId") Long employeeId,@ModelAttribute("holiday") Holiday holiday) {
+	public ModelAndView getEmployeeDetails(
+			@PathVariable("employeeId") Long employeeId,
+			@ModelAttribute("holiday") Holiday holiday) 
+	{
 		ModelAndView model = new ModelAndView("employee/details");
 		Employee employee = this.employeeService.findById(employeeId);
 		model.addObject("employee", employee).addObject("holiday",holiday);
@@ -58,7 +61,10 @@ public class EmployeeController {
 	}
 	
 	@GetMapping("/details")
-	public ModelAndView getEmployee(@ModelAttribute("user")Employee user,@ModelAttribute("holiday") Holiday holiday) {
+	public ModelAndView getEmployee(
+			@ModelAttribute("user")Employee user,
+			@ModelAttribute("holiday") Holiday holiday) 
+	{
 		ModelAndView model = new ModelAndView("employee/details");
 		Employee employee = this.employeeService.findById(user.getId());
 		model.addObject("employee", user).addObject("holiday",holiday);
@@ -83,7 +89,11 @@ public class EmployeeController {
 	 * @return Redirect to the details page
 	 */
 	@PostMapping ("/requestholiday")
-	public RedirectView processHolidayRequest(@ModelAttribute("user")Employee user,@Valid Holiday holiday,Model model,RedirectAttributes attributes)
+	public RedirectView processHolidayRequest(
+			@ModelAttribute("user")Employee user,
+			@Valid Holiday holiday,
+			Model model,
+			RedirectAttributes attributes)
 	{
 		if (holiday.validDateRange() && user.getEntitlement() >= holiday.daysBetween()) 
 		{

@@ -1,6 +1,9 @@
 package com.timespace.controllers;
 
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +21,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.timespace.component.EntitlementComponent;
 import com.timespace.models.Department;
@@ -75,23 +80,54 @@ public class HumanResourceController {
 		return "humanresource/addEmployee";
 	}
 	
+	/**
+	 * Creates a new employee if the employee number does not exits
+	 * 
+	 * @param employee
+	 * @param attributes
+	 * @param result
+	 * @return
+	 */
 	@PostMapping("/saveemployee")
-	public String processNewEmployeeForm(@Valid Employee employee, BindingResult result) {
+	public RedirectView processNewEmployeeForm(
+			@Valid Employee employee,
+			RedirectAttributes attributes,
+			BindingResult result) {
 		if (result.hasErrors()) {
-			return "humanresource/addEmployee";
-		} else {
-			employee.calculateEntitlement(entitlementComponent);
-			employee.setContracted(25);
-			Employee savedEmployee = employeeService.save(employee);
-			return "redirect:/employee/details/" + savedEmployee.getId();
+			attributes.addFlashAttribute("message", "Errors with the form input!");
+			return new RedirectView("addemployee");
+		} 
+		else 
+		{
+			//Check if the emplyee number exists
+			long existingEmp = employeeService.findAll()
+					.stream()
+					.filter(mc -> mc.getEmplId().equals(employee.getEmplId())).count();
+	
+             if(existingEmp==0)   
+             {
+            	employee.calculateEntitlement(entitlementComponent);
+     			employee.setContracted(25);
+     			Employee savedEmployee = employeeService.save(employee);
+     			attributes.addFlashAttribute("message", "New Employee created");
+     			return new RedirectView("/employee/details/" + savedEmployee.getId());
+             }
+             else
+             {
+            	 attributes.addFlashAttribute("message", "Employee number already exists");
+            	 return new RedirectView("addemployee");
+             }
 
 		}
 	}
 
 	@GetMapping("/editemployee/{employeeId}")
-	public String addEmployee(@PathVariable("employeeId") Long employeeId,
-		@ModelAttribute("employee") Employee employee, @ModelAttribute("manager") Manager manager,
-		BindingResult result, ModelMap model) 
+	public String addEmployee(
+			@PathVariable("employeeId") Long employeeId,
+			@ModelAttribute("employee") Employee employee, 
+			@ModelAttribute("manager") Manager manager,
+			BindingResult result, 
+			ModelMap model) 
 	{
 		Employee empl = this.employeeService.findById(employeeId);
 		Set<Manager> manager1 = this.managerService.findAll();
@@ -100,12 +136,17 @@ public class HumanResourceController {
 	}
 
 	@PostMapping("/editemployee/{employeeId}")
-	public String editEmployee(@Valid Employee employee, BindingResult result,
-			@PathVariable("employeeId") long employeeId, @RequestParam("manager") Manager manager) 
+	public String editEmployee(
+			@Valid Employee employee, 
+			@PathVariable("employeeId") long employeeId, 
+			@RequestParam("manager") Manager manager,
+			BindingResult result) 
 	{
 		if (result.hasErrors()) {
 			return VIEWS_OWNER_CREATE_OR_UPDATE_FORM;
-		} else {
+		} 
+		else 
+		{
 			employee.setId(employeeId);
 			this.employeeService.save(employee);
 			Manager aManager = managerService.findById(manager.getId());
@@ -152,7 +193,9 @@ public class HumanResourceController {
 	}
 	
 	@PostMapping("/newdepartment/{employeeId}")
-	public String processNewDepartmentForm(@PathVariable("employeeId") long employeeId,@Valid Department department) 
+	public String processNewDepartmentForm(
+			@PathVariable("employeeId") long employeeId,
+			@Valid Department department) 
 	{
 			departmentService.save(department);
 			return "redirect:/humanresource/addmanager/"+employeeId;

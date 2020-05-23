@@ -1,10 +1,13 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity4" th:fragment="layout(template,menu)">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+    <title>Timespace:: a holiday allocation system</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/timespace.css}" />
 </head>
 <body>
-
+<div th:text="${message}">incoming message...</div>
 </body>
 </html>

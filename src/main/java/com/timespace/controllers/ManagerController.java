@@ -58,7 +58,10 @@ public class ManagerController {
 	 * @return
 	 */
 	@GetMapping("/authholiday/{employeeId}/{holidayId}/{id}")
-	public String authoriseEmployeeHoliday(@PathVariable("id") Integer id,@PathVariable("employeeId") Long employeeId,@PathVariable("holidayId") Long holidayId,ModelMap modelMap) 
+	public String authoriseEmployeeHoliday(
+			@PathVariable("id") Integer id,
+			@PathVariable("employeeId") Long employeeId,
+			@PathVariable("holidayId") Long holidayId,ModelMap modelMap) 
 	{
 		
 		Employee employee = employeeService.findById(employeeId);

@@ -63,8 +63,7 @@ public class EmployeeServiceJpa implements EmployeeService
 
 	@Override
 	public Optional<Employee> findByEmplId(Integer emplId) {
-		// TODO Auto-generated method stub
-		return null;
+		return employeeRepository.findByEmplId(emplId);
 	}
 	
 	

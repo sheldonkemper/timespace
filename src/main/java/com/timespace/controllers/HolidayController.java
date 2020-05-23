@@ -27,11 +27,10 @@ public class HolidayController
 {
 	HolidayService holidayService;
 	EmployeeService employeeService;
-	private final Log log;
 
 	public HolidayController(HolidayService holidayService, EmployeeService employeeService) 
 	{
-		this.log = null;
+		
 		this.employeeService = employeeService;
 		this.holidayService = holidayService;
 	}
@@ -42,7 +41,9 @@ public class HolidayController
 	}
 
 	@ModelAttribute("holiday")
-	public Holiday loadEmployeeWithHoliday(@PathVariable("employeeId") Long employeeId, Map<String, Object> model) 
+	public Holiday loadEmployeeWithHoliday(
+			@PathVariable("employeeId") Long employeeId, 
+			Map<String, Object> model) 
 	{
 		Employee employee = employeeService.findById(employeeId);
 		model.put("employee", employee);
@@ -59,7 +60,10 @@ public class HolidayController
 	 */
 
 	@PostMapping ("/requestholiday/{employeeId}")
-	public String processHolidayRequestForm(@PathVariable("employeeId") Long employeeId,@Valid Holiday holiday,BindingResult result)
+	public String processHolidayRequestForm(
+			@PathVariable("employeeId") Long employeeId,
+			@Valid Holiday holiday,
+			BindingResult result)
 	{
 		if(result.hasErrors())
 		{
