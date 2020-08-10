@@ -1,9 +1,6 @@
 package com.timespace.controllers;
 
 import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,10 +17,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
-
 import com.timespace.component.EntitlementComponent;
 import com.timespace.models.Department;
 import com.timespace.models.Employee;
@@ -40,7 +35,6 @@ public class HumanResourceController {
 	private final DepartmentService departmentService;
 	private final EntitlementComponent entitlementComponent;
 	private final ManagerService managerService;
-	private static final String VIEWS_OWNER_CREATE_OR_UPDATE_FORM = "employee/details/";
 
 	public HumanResourceController(DepartmentService departmentService, ManagerService managerService,
 		EmployeeService employeeService, EntitlementComponent entitlementComponent) {
@@ -137,13 +131,13 @@ public class HumanResourceController {
 
 	@PostMapping("/editemployee/{employeeId}")
 	public String editEmployee(
-			@Valid Employee employee, 
-			@PathVariable("employeeId") long employeeId, 
-			@RequestParam("manager") Manager manager,
+			@PathVariable("employeeId") Long employeeId,
+			@ModelAttribute("employee") Employee employee, 
+			@ModelAttribute("manager") Manager manager,
 			BindingResult result) 
 	{
 		if (result.hasErrors()) {
-			return VIEWS_OWNER_CREATE_OR_UPDATE_FORM;
+			return "employee/details/";
 		} 
 		else 
 		{

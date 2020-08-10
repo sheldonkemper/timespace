@@ -35,8 +35,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter
 	                .antMatchers("/").permitAll()
 	                .antMatchers("/console/**").permitAll()
 	                .antMatchers("/humanresource/**").hasRole("HR")
-	                .antMatchers("/employee/**").hasAnyRole("HR","EMPLOYEE","MANAGER")
+	                .antMatchers("/employee/**").hasAnyRole("ACCOUNT","HR","EMPLOYEE","MANAGER")
 	                .antMatchers("/manager/**").hasAnyRole("MANAGER")
+	                .antMatchers("/account/**").hasAnyRole("ACCOUNT")
 	                
 	            .and()
 	                .formLogin()
@@ -64,6 +65,12 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter
 		@Bean
 		public UserDetailsService userDetailsService() {
 			return new InMemoryUserDetailsManager(
+				builder()
+					.passwordEncoder(input -> passwordEncoder().encode(input))
+					.username("Boland")
+					.password("12345")
+					.roles("EMPLOYEE","ACCOUNT")
+					.build(),
 				builder()
 					.passwordEncoder(input -> passwordEncoder().encode(input))
 					.username("Versey")

@@ -16,3 +16,7 @@ i{
 	position:relative;
 	top:3em;
 }
+
+a:hover{text-decoration:none;}
+
+a.home:hover{color:#FFFFFF;}

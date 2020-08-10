@@ -50,6 +50,12 @@ public class DepartmentServiceJpa implements DepartmentService
 		
 	}
 
+	@Override
+	public Set<Department> findAllById(Long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 
 

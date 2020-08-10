@@ -65,6 +65,12 @@ public class EmployeeServiceJpa implements EmployeeService
 	public Optional<Employee> findByEmplId(Integer emplId) {
 		return employeeRepository.findByEmplId(emplId);
 	}
+
+	@Override
+	public Set<Employee> findAllById(Long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 	

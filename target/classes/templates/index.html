@@ -13,22 +13,28 @@
 	<h2>Timespace Portal</h2>
 	<br>
      <h4>Welcome  <span sec:authentication="name"></span> </h4>
+     <div sec:authorize="isAnonymous()">Please login to continue : <a href="/login" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Login</a>
+     </div>
      <span th:text="${message}">empl id</span>
      <div class="d-flex mb-3" sec:authorize="hasRole('EMPLOYEE')">
-  		<div class="p-2">
-  			<a class="box bg-info " th:href="@{/employee/requestholiday}">Request Holiday</a>
+  		<div class="d-flex" >
+  			<a class="box bg-info home" th:href="@{/employee/requestholiday}">Request Holiday</a>
   		</div>
-  		<div class="p-2">
-  			<a class="box bg-warning" th:href="@{/employee/details}">Your Employee Details</a>
+  		<div class="d-flex">
+  			<a class="box bg-warning home" th:href="@{/employee/details}">Your Employee Details</a>
   		</div>
-  		<div sec:authorize="hasRole('MANAGER')" class="p-2">
-  			<a class="box bg-primary" th:href="@{/manager/listsubordinates}">List subordinates</a>
+  		<div class="d-flex" sec:authorize="hasRole('MANAGER')" >
+  			<a class="box bg-primary home" th:href="@{/manager/listsubordinates}">List subordinates</a>
+  		</div>
+  		<div class="d-flex" sec:authorize="hasRole('ACCOUNT')">
+  			<a class="box bg-primary home" th:href="@{/account/listemployee}">List colleagues</a>
+  			<a class="box bg-success home" th:href="@{/account/searchDates}">Search by date</a>
   		</div>
   			<div sec:authorize="hasRole('HR')" class="p-2" >
-  			<a class="box bg-info " href="/humanresource/addemployee">Add new Employee</a>
+  			<a class="box bg-info home " href="/humanresource/addemployee">Add new Employee</a>
   		</div>
-  		<div class="p-2" sec:authorize="hasRole('HR')">
-  			<a class="box bg-warning" href="/humanresource/listemployee">List all Employees</a>
+  		<div class="d-flex" sec:authorize="hasRole('HR')">
+  			<a class="box bg-warning home" href="/humanresource/listemployee">List all Employees</a>
   		</div>
   	
 	</div>
@@ -36,10 +42,10 @@
 	     <div class="d-flex mb-3" sec:authorize="hasRole('HR')">
   
   			<div class="p-2" >
-  			<a class="box bg-info " href="/humanresource/addemployee">Add new Employee</a>
+  			<a class="box bg-info home " href="/humanresource/addemployee">Add new Employee</a>
   		</div>
   		<div class="p-2" >
-  			<a class="box bg-warning" href="/humanresource/listemployee">List all Employees</a>
+  			<a class="box bg-warning home" href="/humanresource/listemployee">List all Employees</a>
   		</div>
   	
 	</div>

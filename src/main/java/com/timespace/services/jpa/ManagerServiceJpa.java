@@ -61,6 +61,12 @@ public class ManagerServiceJpa implements ManagerService
 		return managerRepository.findByEmplId(emplId);
 	}
 
+	@Override
+	public Set<Manager> findAllById(Long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 	
 	

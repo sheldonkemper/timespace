@@ -43,8 +43,8 @@ public class Holiday extends BaseEntity{
 		@DateTimeFormat(pattern = "yyyy-MM-dd")
 	    private LocalDate endDate;
 		
-		@Column(name="description")
-	    private String description;
+		@Column(name="num_days")
+	    private Long numDays;
 		
 		@Column(name="granted")
 		@Builder.Default

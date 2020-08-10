@@ -1,4 +1,5 @@
 com/timespace/TimespaceApplicationTests.class
+com/timespace/jpa/ManagerServiceJpaTest.class
 com/timespace/component/EntitlementComponentTest.class
 com/timespace/controllers/HumanResourceControllerTest.class
 com/timespace/controllers/EmployeeControllerTest.class

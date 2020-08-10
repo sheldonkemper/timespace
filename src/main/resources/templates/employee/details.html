@@ -14,7 +14,7 @@
 	<div class="container">
 		<h2>Employee Details</h2>
 		<br>
-	
+
 		<table class="table table-striped">
 			<tr>
 				<th>Employee ID</th>
@@ -32,55 +32,100 @@
 			</tr>
 			<tr>
 				<th>Contracted holiday entitlement</th>
-				<td><span th:text="${employee?.contracted}">contracted holiday</span></td>
+				<td><span th:text="${employee?.contracted}">contracted
+						holiday</span></td>
 			</tr>
 			<tr>
 				<th>Yearly holiday entitlement</th>
-				<td><span th:text="${employee?.entitlement}">holiday entitlment</span></td>
+				<td><span th:text="${employee?.entitlement}">holiday
+						entitlment</span></td>
 			</tr>
-		<tr>
+			<tr>
 				<th>Department</th>
-				<td><span th:text="${employee.manager?.department?.name}">unassigned</span><span sec:authorize="hasRole('HR')" th:if="${employee.manager?.department?.name}==null"><a th:href="@{/humanresource/editemployee/}+${employee?.id}">assign manager</a></span></td>
+				<td><span th:text="${employee.manager?.department?.name}">unassigned</span><span
+					sec:authorize="hasRole('HR')"
+					th:if="${employee.manager?.department?.name}==null"><a
+						th:href="@{/humanresource/editemployee/}+${employee?.id}">assign
+							manager</a></span></td>
 			</tr>
 		</table>
 		<div sec:authorize="hasRole('HR')">
 			<a th:href="@{/humanresource/editemployee/}+${employee?.id}"><button>Edit
-					Employee</button> </a>
-					<a th:href="@{/humanresource/addmanager/}+${employee?.id}"><button>Promote
+					Employee</button> </a> <a
+				th:href="@{/humanresource/addmanager/}+${employee?.id}"><button>Promote
 					Employee</button> </a>
 		</div>
-<br>
-	<h3>Employee Holiday Request</h3>
+		<br>
+		<h3>Employee Holiday Request</h3>
 
-<table class="table">
-  <thead class="thead-dark">
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Start date</th>
-      <th scope="col">End date</th>
-      <th scope="col">Status</th>
-      <th scope="col" sec:authorize="hasRole('MANAGER')">Grant</th>
-      <th scope="col" sec:authorize="hasRole('MANAGER')">Decline</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr th:each="holiday: ${employee.holidays}">
-      <th th:text="${holiday.id}" scope="row">1</th>
-      <td th:text="${holiday.startDate}">1970-01-01</td>
-      <td th:text="${holiday.endDate}">1970-01-01</td>
-      <td th:text="${holiday.granted}">Yes</td>
-      <td sec:authorize="hasRole('MANAGER')"><a class="granted" th:href="@{/manager/authholiday/}+${employee?.id}+'/'+${holiday?.id}+'/'+1"><span><svg class="bi bi-check-box" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-  <path fill-rule="evenodd" d="M15.354 2.646a.5.5 0 010 .708l-7 7a.5.5 0 01-.708 0l-3-3a.5.5 0 11.708-.708L8 9.293l6.646-6.647a.5.5 0 01.708 0z" clip-rule="evenodd"/>
-  <path fill-rule="evenodd" d="M1.5 13A1.5 1.5 0 003 14.5h10a1.5 1.5 0 001.5-1.5V8a.5.5 0 00-1 0v5a.5.5 0 01-.5.5H3a.5.5 0 01-.5-.5V3a.5.5 0 01.5-.5h8a.5.5 0 000-1H3A1.5 1.5 0 001.5 3v10z" clip-rule="evenodd"/>
+		<table class="table">
+			<thead class="thead-dark">
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">Start date</th>
+					<th scope="col">End date</th>
+					<th scope="col">Number of days</th>
+					<th scope="col">Status</th>
+					<th scope="col" sec:authorize="hasRole('EMPLOYEE')">Delete</th>
+					<th scope="col" sec:authorize="hasRole('MANAGER')">Grant</th>
+					<th scope="col" sec:authorize="hasRole('MANAGER')">Decline</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="holiday: ${employee.holidays}">
+					<th th:text="${holiday.id}" scope="row">1</th>
+					<td th:text="${holiday.startDate}">1970-01-01</td>
+					<td th:text="${holiday.endDate}">1970-01-01</td>
+					<td th:text="${holiday.numDays}">1</td>
+					<td th:text="${holiday.granted}">Yes</td>
+
+					<td sec:authorize="hasRole('EMPLOYEE')"><a class="declined"
+						th:href="@{/employee/deleteholiday/}+${holiday?.id}"> <span><svg
+									class="bi bi-x-square" width="1em" height="1em"
+									viewBox="0 0 16 16" fill="currentColor"
+									xmlns="http://www.w3.org/2000/svg">
+  <path fill-rule="evenodd"
+										d="M14 1H2a1 1 0 00-1 1v12a1 1 0 001 1h12a1 1 0 001-1V2a1 1 0 00-1-1zM2 0a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V2a2 2 0 00-2-2H2z"
+										clip-rule="evenodd" />
+  <path fill-rule="evenodd"
+										d="M11.854 4.146a.5.5 0 010 .708l-7 7a.5.5 0 01-.708-.708l7-7a.5.5 0 01.708 0z"
+										clip-rule="evenodd" />
+  <path fill-rule="evenodd"
+										d="M4.146 4.146a.5.5 0 000 .708l7 7a.5.5 0 00.708-.708l-7-7a.5.5 0 00-.708 0z"
+										clip-rule="evenodd" />
 </svg></span></a></td>
-      <td sec:authorize="hasRole('MANAGER')"><a class="declined" th:href="@{/manager/authholiday/}+${employee?.id}+'/'+${holiday?.id}+'/'+0"><span><svg class="bi bi-x-square" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-  <path fill-rule="evenodd" d="M14 1H2a1 1 0 00-1 1v12a1 1 0 001 1h12a1 1 0 001-1V2a1 1 0 00-1-1zM2 0a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V2a2 2 0 00-2-2H2z" clip-rule="evenodd"/>
-  <path fill-rule="evenodd" d="M11.854 4.146a.5.5 0 010 .708l-7 7a.5.5 0 01-.708-.708l7-7a.5.5 0 01.708 0z" clip-rule="evenodd"/>
-  <path fill-rule="evenodd" d="M4.146 4.146a.5.5 0 000 .708l7 7a.5.5 0 00.708-.708l-7-7a.5.5 0 00-.708 0z" clip-rule="evenodd"/>
-</svg></span></a></td>
-    </tr>
-    </tbody>
-    </table>
+					<td sec:authorize="hasRole('MANAGER')"><a class="granted"
+						th:href="@{/manager/authholiday/}+${employee?.id}+'/'+${holiday?.id}+'/'+1">
+							<span><svg class="bi bi-check-box" width="1em"
+									height="1em" viewBox="0 0 16 16" fill="currentColor"
+									xmlns="http://www.w3.org/2000/svg">
+  <path fill-rule="evenodd"
+										d="M15.354 2.646a.5.5 0 010 .708l-7 7a.5.5 0 01-.708 0l-3-3a.5.5 0 11.708-.708L8 9.293l6.646-6.647a.5.5 0 01.708 0z"
+										clip-rule="evenodd" />
+  <path fill-rule="evenodd"
+										d="M1.5 13A1.5 1.5 0 003 14.5h10a1.5 1.5 0 001.5-1.5V8a.5.5 0 00-1 0v5a.5.5 0 01-.5.5H3a.5.5 0 01-.5-.5V3a.5.5 0 01.5-.5h8a.5.5 0 000-1H3A1.5 1.5 0 001.5 3v10z"
+										clip-rule="evenodd" />
+</svg></span>
+					</a></td>
+					<td sec:authorize="hasRole('MANAGER')"><a class="declined"
+						th:href="@{/manager/authholiday/}+${employee?.id}+'/'+${holiday?.id}+'/'+0">
+							<span><svg class="bi bi-x-square" width="1em" height="1em"
+									viewBox="0 0 16 16" fill="currentColor"
+									xmlns="http://www.w3.org/2000/svg">
+  <path fill-rule="evenodd"
+										d="M14 1H2a1 1 0 00-1 1v12a1 1 0 001 1h12a1 1 0 001-1V2a1 1 0 00-1-1zM2 0a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V2a2 2 0 00-2-2H2z"
+										clip-rule="evenodd" />
+  <path fill-rule="evenodd"
+										d="M11.854 4.146a.5.5 0 010 .708l-7 7a.5.5 0 01-.708-.708l7-7a.5.5 0 01.708 0z"
+										clip-rule="evenodd" />
+  <path fill-rule="evenodd"
+										d="M4.146 4.146a.5.5 0 000 .708l7 7a.5.5 0 00.708-.708l-7-7a.5.5 0 00-.708 0z"
+										clip-rule="evenodd" />
+</svg></span>
+					</a></td>
+				</tr>
+			</tbody>
+		</table>
 
 	</div>
 </body>

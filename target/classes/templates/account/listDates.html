@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{fragments/layout :: layout(~{::body},'account')}">
+<head>
+<title>List Employees</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" type="text/css"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+</head>
+<body>
+	<div class="container">
+	<!-- /*@thymesVar id=""holiday type= com.timespace.models.Holiday*/-->
+		<h1 th:text="'List of Holidays'">A list of holidays</h1>
+
+		<table class="table table-hover table-light">
+			<thead>
+				<tr>
+					<th scope="col">Id</th>
+					<th scope="col">Start Date</th>
+					<th scope="col">End Date</th>
+					<th scope="col">Number Days</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="holiday:${holiday}">
+				<td th:text="${holiday.id}">test</td>
+				<!-- <td th:text="${#temporals.format(holiday.startDate, 'dd-MM-yyyy')}">test</td>-->
+				<td th:text="${holiday.startDate}">start date</td>
+				<td th:text="${holiday.endDate}">end date</td>
+				<td th:text="${holiday.numDays}">end date</td>
+				</tr>
+			</tbody>
+		</table>
+
+	</div>
+
+</body>
+</html>

@@ -47,6 +47,12 @@ public class EmployeeServiceMap extends AbstractMapService<Employee,Long> implem
 		return null;
 	}
 
+	@Override
+	public Set<Employee> findAllById(Long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 
 	
